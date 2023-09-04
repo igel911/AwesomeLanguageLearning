@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">AwesomeLanguageLearning</string>
     <string name="language_app">Language App</string>
+    <string name="already_member">Already a fillolearn user?</string>
+    <string name="login">Log in</string>
+    <string name="choose_language">Choose a language</string>
+    <string name="develop_habit">Develop a habit of learning and make it a part of your daily routine</string>
+    <string name="time_learn">Take your time to learn</string>
+    <string name="confidence_words">Confidence in your words</string>
+    <string name="with_conversation">With conversation-based learning, you\'ll be talking from lesson one</string>
+    <string name="lessons_need">The lessons you need to learn</string>
+    <string name="using_variety">Using a variety of learning styles to learn and retain</string>
 </resources>

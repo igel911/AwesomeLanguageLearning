@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
-fun AwesomeLanguageLearningTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -19,7 +19,7 @@ fun AwesomeLanguageLearningTheme(
     )
 }
 
-object AwesomeLanguageLearningTheme {
+object AppTheme {
 
     val colors: ComposeColors
         @Composable
