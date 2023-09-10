@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
@@ -31,11 +30,12 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitleClickable
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
 import com.example.awesomelanguagelearning.login_signup.ui.Controls
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen() {
-    val viewModel = viewModel { LoginViewModel() }
+    val viewModel: LoginViewModel = koinViewModel()
     val loginState by viewModel.loginStateFlow.collectAsState()
 
     Scaffold(
