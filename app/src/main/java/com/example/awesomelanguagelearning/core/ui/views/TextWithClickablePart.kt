@@ -3,7 +3,6 @@ package com.example.awesomelanguagelearning.core.ui.views
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -11,23 +10,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.utils.TextColorData
+import com.example.awesomelanguagelearning.core.ui.utils.TextStyleData
 
 @Composable
 fun TextWithClickablePart(
     regularText: String,
     clickableText: String,
     modifier: Modifier = Modifier,
-    textColor: Color = AppTheme.colors.grayMedium,
-    textStyle: TextStyle = AppTheme.typography.bodyM,
-    clickableTextColor: Color = AppTheme.colors.black,
-    clickableTextStyle: TextStyle = AppTheme.typography.bodyBoldM,
-    onClick: () -> Unit = { }
+    onClick: () -> Unit = { },
+    textColorData: TextColorData = TextColorData(
+        regular = AppTheme.colors.grayMedium,
+        clickable = AppTheme.colors.black
+    ),
+    textStyleData: TextStyleData = TextStyleData(
+        regular = AppTheme.typography.bodyM,
+        clickable = AppTheme.typography.bodyBoldM
+    )
 ) {
     val annotatedText = buildAnnotatedString {
         withStyle(
             style = regularStyle(
-                textStyle = textStyle,
-                textColor = textColor
+                textColorData = textColorData,
+                textStyleData = textStyleData
             )
         ) {
             append(regularText)
@@ -36,8 +41,8 @@ fun TextWithClickablePart(
 
         withStyle(
             style = clickableStyle(
-                textStyle = clickableTextStyle,
-                textColor = clickableTextColor
+                textColorData = textColorData,
+                textStyleData = textStyleData
             )
         ) {
             pushStringAnnotation(
@@ -64,23 +69,23 @@ fun TextWithClickablePart(
 
 @Composable
 private fun regularStyle(
-    textStyle: TextStyle,
-    textColor: Color
+    textColorData: TextColorData,
+    textStyleData: TextStyleData
 ) = SpanStyle(
-    color = textColor,
-    fontStyle = textStyle.fontStyle,
-    fontSize = textStyle.fontSize
+    color = textColorData.regular,
+    fontStyle = textStyleData.regular.fontStyle,
+    fontSize = textStyleData.regular.fontSize
 )
 
 @Composable
 private fun clickableStyle(
-    textStyle: TextStyle,
-    textColor: Color
+    textColorData: TextColorData,
+    textStyleData: TextStyleData
 ) = SpanStyle(
-    color = textColor,
-    fontStyle = textStyle.fontStyle,
-    fontSize = textStyle.fontSize,
-    fontWeight = textStyle.fontWeight
+    color = textColorData.clickable,
+    fontStyle = textStyleData.clickable.fontStyle,
+    fontSize = textStyleData.clickable.fontSize,
+    fontWeight = textStyleData.clickable.fontWeight
 )
 
 @Preview(showBackground = true)

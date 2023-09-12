@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.utils.TextColorData
+import com.example.awesomelanguagelearning.core.ui.utils.TextStyleData
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.ImageButton
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
@@ -33,7 +35,7 @@ fun Controls(
     onFacebookClick: () -> Unit = { },
     onGoogleClick: () -> Unit = { },
     onClickableTextClick: () -> Unit = { }
-    ) {
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -101,11 +103,15 @@ fun Controls(
         TextWithClickablePart(
             regularText = regularText,
             clickableText = clickableText,
-            textColor = AppTheme.colors.grayDark,
-            textStyle = AppTheme.typography.bodyL,
-            clickableTextColor = AppTheme.colors.blueDark,
-            clickableTextStyle = AppTheme.typography.bodyBoldL,
-            onClick = onClickableTextClick
+            onClick = onClickableTextClick,
+            textColorData = TextColorData(
+                regular = AppTheme.colors.grayDark,
+                clickable = AppTheme.colors.blueDark
+            ),
+            textStyleData = TextStyleData(
+                regular = AppTheme.typography.bodyL,
+                clickable = AppTheme.typography.bodyBoldL
+            )
         )
 
         HorizontalSpacer(16)
