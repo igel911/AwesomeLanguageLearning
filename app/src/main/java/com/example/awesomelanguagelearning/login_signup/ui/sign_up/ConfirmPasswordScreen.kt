@@ -22,7 +22,7 @@ import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.PasswordInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
-import com.example.awesomelanguagelearning.login_signup.ui.Controls
+import com.example.awesomelanguagelearning.core.ui.views.Controls
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

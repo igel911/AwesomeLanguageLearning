@@ -29,7 +29,7 @@ import com.example.awesomelanguagelearning.core.ui.views.TextInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitleClickable
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
-import com.example.awesomelanguagelearning.login_signup.ui.Controls
+import com.example.awesomelanguagelearning.core.ui.views.Controls
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
