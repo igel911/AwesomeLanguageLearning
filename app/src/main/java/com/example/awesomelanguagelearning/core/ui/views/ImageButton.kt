@@ -1,16 +1,13 @@
 package com.example.awesomelanguagelearning.core.ui.views
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,15 +20,15 @@ fun ImageButton(
     image: Painter,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-
-    ) {
-    Box(
-        modifier = modifier
-            .clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(bounded = true, color = AppTheme.colors.grayMedium)
-            ) { onClick() },
-        contentAlignment = Alignment.Center
+    containerColor: Color = AppTheme.colors.grayLight
+) {
+    Button(
+        modifier = modifier,
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor
+        ),
+        shape = AppTheme.shapes.medium
     ) {
         Image(
             painter = image,
@@ -47,10 +44,9 @@ fun DefaultPreview() {
         ImageButton(
             image = painterResource(id = R.drawable.logo_google),
             onClick = { },
-            modifier = Modifier.background(
-                color = AppTheme.colors.grayLight,
-                shape = AppTheme.shapes.medium
-            ).width(150.dp).height(50.dp)
+            modifier = Modifier
+                .width(150.dp)
+                .height(50.dp)
         )
     }
 }
