@@ -29,6 +29,7 @@ import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
+import com.example.awesomelanguagelearning.core.ui.views.TextWithClickablePart
 
 @Composable
 fun OnboardingPage(
@@ -89,7 +90,7 @@ fun OnboardingPage(
         HorizontalSpacer(50)
 
         TextButton(
-            text = stringResource(id = R.string.choose_language),
+            text = stringResource(R.string.choose_language),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
@@ -97,9 +98,11 @@ fun OnboardingPage(
 
         HorizontalSpacer(32)
 
-        TitleLogin(
+        TextWithClickablePart(
+            regularText = stringResource(R.string.already_user),
+            clickableText = stringResource(R.string.login),
             modifier = Modifier.padding(bottom = 48.dp),
-            onLoginClick = onLoginClick
+            onClick = onLoginClick
         )
     }
 }
@@ -112,7 +115,7 @@ private fun getPinColor(
 
 @DrawableRes
 private fun getImage(currentPage: Int): Int =
-    when(currentPage) {
+    when (currentPage) {
         0 -> R.drawable.paging_1
         1 -> R.drawable.paging_2
         else -> R.drawable.paging_3
@@ -120,7 +123,7 @@ private fun getImage(currentPage: Int): Int =
 
 @StringRes
 private fun getTitleText(currentPage: Int): Int =
-    when(currentPage) {
+    when (currentPage) {
         0 -> R.string.confidence_words
         1 -> R.string.time_learn
         else -> R.string.lessons_need
@@ -129,7 +132,7 @@ private fun getTitleText(currentPage: Int): Int =
 
 @StringRes
 private fun getDescriptionText(currentPage: Int): Int =
-    when(currentPage) {
+    when (currentPage) {
         0 -> R.string.with_conversation
         1 -> R.string.develop_habit
         else -> R.string.using_variety

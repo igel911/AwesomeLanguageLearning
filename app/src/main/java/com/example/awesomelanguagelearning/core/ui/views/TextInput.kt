@@ -4,10 +4,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -20,7 +23,7 @@ import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OutlinedTextInput(
+fun TextInput(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -38,17 +41,28 @@ fun OutlinedTextInput(
         imeAction = ImeAction.None
     ),
     textStyle: TextStyle = TextStyle(textAlign = TextAlign.Start),
-    //textFieldColors: TextFieldColors = textFieldColors()
+    textColor: Color = AppTheme.colors.black,
+    textFieldColors: TextFieldColors = TextFieldDefaults.textFieldColors(
+        textColor = textColor,
+        placeholderColor = textColor,
+        containerColor = AppTheme.colors.grayLight,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent
+
+    )
 ) {
-    OutlinedTextField(
+    TextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
-        placeholder = { Text(
-            text = placeholderText,
-            style = placeholderTextStyle
+        placeholder = {
+            Text(
+                text = placeholderText,
+                style = placeholderTextStyle
 
-        ) },
+            )
+        },
         shape = shape,
         visualTransformation = visualTransformation,
         trailingIcon = {
@@ -65,7 +79,7 @@ fun OutlinedTextInput(
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         textStyle = textStyle,
-        //colors = textFieldColors
+        colors = textFieldColors
     )
 }
 
@@ -73,7 +87,7 @@ fun OutlinedTextInput(
 @Composable
 fun OutlinedTextInputPreview() {
     AppTheme {
-        OutlinedTextInput(
+        TextInput(
             value = "abc",
             onValueChange = { }
         )

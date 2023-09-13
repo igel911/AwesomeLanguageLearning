@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class OnboardingViewModel: ViewModel() {
-    private val _currentPageState =  MutableStateFlow(0)
-    val currentPageState = _currentPageState.asStateFlow()
+    private val _currentPageStateFlow =  MutableStateFlow(0)
+    val currentPageStateFlow = _currentPageStateFlow.asStateFlow()
 
     fun updateCurrentPage(currentPageIndex: Int) {
         viewModelScope.launch {
-            _currentPageState.value = currentPageIndex
+            _currentPageStateFlow.value = currentPageIndex
         }
     }
 }

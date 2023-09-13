@@ -11,9 +11,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.paging.ui.views.OnboardingPage
+import org.koin.androidx.compose.koinViewModel
 
 const val PAGE_COUNT = 3
 
@@ -22,9 +22,9 @@ const val PAGE_COUNT = 3
 fun OnboardingScreen() {
     Box {
         val pagerState = rememberPagerState { PAGE_COUNT }
-        val viewModel = viewModel<OnboardingViewModel>()
+        val viewModel: OnboardingViewModel = koinViewModel()
 
-        val currentPage by viewModel.currentPageState.collectAsState()
+        val currentPage by viewModel.currentPageStateFlow.collectAsState()
         LaunchedEffect(currentPage) {
             pagerState.animateScrollToPage(currentPage)
         }
