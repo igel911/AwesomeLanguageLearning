@@ -2,7 +2,9 @@ package com.example.awesomelanguagelearning.login_signup.ui.sign_up
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -10,6 +12,9 @@ import kotlinx.coroutines.launch
 class ConfirmPasswordViewModel : ViewModel() {
     private val _confirmPasswordStateFlow = MutableStateFlow(ConfirmPasswordState())
     val confirmPasswordStateFlow = _confirmPasswordStateFlow.asStateFlow()
+
+    private val _confirmPasswordFlow = MutableSharedFlow<Boolean>()
+    val confirmPasswordFlow = _confirmPasswordFlow.asSharedFlow()
 
     fun updateConfirmPassword(confirmPassword: String) {
         viewModelScope.launch {
@@ -28,18 +33,8 @@ class ConfirmPasswordViewModel : ViewModel() {
     }
 
     fun doSignup() {
-
-    }
-
-    fun goToLogin() {
-
-    }
-
-    fun doLoginByFacebook() {
-
-    }
-
-    fun doLoginByGoogle() {
-
+        viewModelScope.launch {
+            _confirmPasswordFlow.emit(true)
+        }
     }
 }

@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class SplashViewModel: ViewModel() {
-    private val _goToNextScreenFlow =  MutableSharedFlow<Boolean>()
+class SplashViewModel : ViewModel() {
+    private val _goToNextScreenFlow = MutableSharedFlow<Boolean>()
     val goToNextScreenFlow = _goToNextScreenFlow.asSharedFlow()
     fun startTimer() {
         viewModelScope.launch {

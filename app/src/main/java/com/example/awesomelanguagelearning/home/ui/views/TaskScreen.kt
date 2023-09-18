@@ -21,9 +21,8 @@ fun TaskScreen() {
     ) {
         TextTitle(
             text = MainNavigation.Task.route,
-            textStyle = AppTheme.typography.h4,
-
-            )
+            textStyle = AppTheme.typography.h4
+        )
     }
 }
 

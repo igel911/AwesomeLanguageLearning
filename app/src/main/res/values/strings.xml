@@ -25,4 +25,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create_acc">Create an Account</string>
     <string name="choose_pass">Choose a Password</string>
+    <string name="complited">Complited 1\/7</string>
 </resources>
