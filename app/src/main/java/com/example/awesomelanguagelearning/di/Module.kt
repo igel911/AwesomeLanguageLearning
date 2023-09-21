@@ -5,6 +5,7 @@ import com.example.awesomelanguagelearning.login_signup.ui.sign_up.ConfirmPasswo
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.CreateAccountViewModel
 import com.example.awesomelanguagelearning.paging.ui.OnboardingViewModel
 import com.example.awesomelanguagelearning.splash.ui.SplashViewModel
+import com.example.awesomelanguagelearning.home.ui.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -14,4 +15,5 @@ val viewModelModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::ConfirmPasswordViewModel)
     viewModelOf(::CreateAccountViewModel)
+    viewModelOf(::HomeViewModel)
 }

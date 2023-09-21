@@ -18,18 +18,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.views.Controls
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.PasswordInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
-import com.example.awesomelanguagelearning.core.ui.views.Controls
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfirmPasswordScreen() {
+fun ConfirmPasswordScreen(
+    navigateToNextScreen: () -> Unit = {},
+    goToLogin: () -> Unit = {},
+    doLoginByFacebook: () -> Unit = {},
+    doLoginByGoogle: () -> Unit = {},
+    navigateBack: () -> Unit = {}
+) {
     val viewModel: ConfirmPasswordViewModel = koinViewModel()
     val confirmPasswordState by viewModel.confirmPasswordStateFlow.collectAsState()
+    val nextScreenState by viewModel.confirmPasswordFlow.collectAsState(initial = false)
+    if (nextScreenState) {
+        navigateToNextScreen()
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -37,7 +47,7 @@ fun ConfirmPasswordScreen() {
             Toolbar(
                 text = stringResource(R.string.signup_title),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = { }
+                onIconClick = navigateBack
             )
         },
         content = { innerPadding ->
@@ -81,9 +91,9 @@ fun ConfirmPasswordScreen() {
                     regularText = stringResource(R.string.already_member),
                     clickableText = stringResource(R.string.login_title),
                     onButtonClick = viewModel::doSignup,
-                    onClickableTextClick = viewModel::goToLogin,
-                    onFacebookClick = viewModel::doLoginByFacebook,
-                    onGoogleClick = viewModel::doLoginByGoogle
+                    onClickableTextClick = goToLogin,
+                    onFacebookClick = doLoginByFacebook,
+                    onGoogleClick = doLoginByGoogle
                 )
             }
         }

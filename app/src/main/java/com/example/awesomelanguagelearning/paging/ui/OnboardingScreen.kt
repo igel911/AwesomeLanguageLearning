@@ -19,7 +19,10 @@ const val PAGE_COUNT = 3
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(
+    onChooseLanguageClick: () -> Unit = {},
+    onLoginClick: () -> Unit = {}
+) {
     Box {
         val pagerState = rememberPagerState { PAGE_COUNT }
         val viewModel: OnboardingViewModel = koinViewModel()
@@ -39,8 +42,8 @@ fun OnboardingScreen() {
                 onPinClick = { selectedPinIndex ->
                     viewModel.updateCurrentPage(selectedPinIndex)
                 },
-                onChooseLanguageClick = { },
-                onLoginClick = { }
+                onChooseLanguageClick = onChooseLanguageClick,
+                onLoginClick = onLoginClick
             )
         }
     }

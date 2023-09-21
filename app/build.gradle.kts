@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.0-alpha04")
     implementation("androidx.compose.material:material-icons-extended:1.5.0")
     implementation("io.insert-koin:koin-androidx-compose:3.4.3")
+    implementation("androidx.navigation:navigation-compose:2.7.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
