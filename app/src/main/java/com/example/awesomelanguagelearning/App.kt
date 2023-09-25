@@ -1,6 +1,8 @@
 package com.example.awesomelanguagelearning
 
 import android.app.Application
+import com.example.awesomelanguagelearning.di.useCaseModule
+import com.example.awesomelanguagelearning.di.utilModule
 import com.example.awesomelanguagelearning.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,7 +16,11 @@ class App: Application() {
         startKoin{
             androidLogger()
             androidContext(this@App)
-            modules(viewModelModule)
+            modules(
+                viewModelModule,
+                utilModule,
+                useCaseModule
+                )
         }
     }
 }

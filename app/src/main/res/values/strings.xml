@@ -25,5 +25,56 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create_acc">Create an Account</string>
     <string name="choose_pass">Choose a Password</string>
-    <string name="complited">Complited 1\/7</string>
+    <string name="complited_title">Completed %1$d\/%2$d</string>
+    <string name="what_your_language">What Is Your Mother Language?</string>
+    <string name="next">Next</string>
+    <string name="what_main_reason_learn">What Is The Main Reason to Learn english?</string>
+    <string name="how_much_know">How much do you know about English?</string>
+    <string name="how_old_you">How old are you?</string>
+    <string name="how_much_learn">How much time do you want to learn language?</string>
+    <string name="how_you_hear">How did you hear about this Language App?</string>
+    <string name="course_overview">Course Overview</string>
+    <string name="overview_text">Learn listening, speaking, reading and writing in English</string>
+    <string name="course_content">Course Content:</string>
+    <string name="words_quantity">9000+</string>
+    <string name="words">Words</string>
+    <string name="sentences_quantity">2100+</string>
+    <string name="sentences">Sentences</string>
+
+    <array name="reason_learn_variants">
+        <item>Travel</item>
+        <item>School</item>
+        <item>Work</item>
+        <item>Family\/Friends</item>
+        <item>Skill Improvement</item>
+        <item>Other</item>
+    </array>
+    <array name="reason_know_variants">
+    <item>Not Much</item>
+    <item>Medium</item>
+    <item>Expert</item>
+</array>
+    <array name="how_old_variants">
+        <item>Under 18</item>
+        <item>18 - 24</item>
+        <item>25 - 34</item>
+        <item>35 - 44</item>
+        <item>45 - 54</item>
+        <item>55 - 64</item>
+        <item>65 or older</item>
+    </array>
+    <array name="how_much_learn_variants">
+        <item>5min\/Day</item>
+        <item>15min\/Day</item>
+        <item>30min\/Day</item>
+        <item>60min\/Day</item>
+    </array>
+    <array name="how_hear_variants">
+        <item>Friends\/Family</item>
+        <item>Play Store</item>
+        <item>Youtube</item>
+        <item>TV</item>
+        <item>Podcast</item>
+        <item>Website App</item>
+    </array>
 </resources>
