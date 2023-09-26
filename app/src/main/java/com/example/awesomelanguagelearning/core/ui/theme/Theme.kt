@@ -3,6 +3,7 @@ package com.example.awesomelanguagelearning.core.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun AppTheme(
@@ -17,6 +18,9 @@ fun AppTheme(
         LocalShapes provides MyShapes,
         content = content
     )
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(color = Colors.purple)
 }
 
 object AppTheme {
