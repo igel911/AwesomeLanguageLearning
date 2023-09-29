@@ -40,6 +40,8 @@
     <string name="words">Words</string>
     <string name="sentences_quantity">2100+</string>
     <string name="sentences">Sentences</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="please_login">Please! Login or Sign up &amp; Get Started</string>
 
     <array name="reason_learn_variants">
         <item>Travel</item>

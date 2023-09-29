@@ -13,5 +13,7 @@ sealed class AppNavigation(val route: String) {
 
     object ChooseLanguage: AppNavigation(route = "choose_language")
 
+    object ChooseLanguageFinal: AppNavigation(route = "choose_language_final")
+
     object Main: AppNavigation(route = "main")
 }

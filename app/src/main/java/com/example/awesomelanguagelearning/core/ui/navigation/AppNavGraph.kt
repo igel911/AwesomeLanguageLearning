@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageFinalScreen
 import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageScreen
 import com.example.awesomelanguagelearning.home.ui.MainScreen
 import com.example.awesomelanguagelearning.login_signup.ui.login.LoginScreen
@@ -60,9 +61,16 @@ fun AppNavGraph(
         }
         composable(AppNavigation.ChooseLanguage.route) {
             ChooseLanguageScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.Main.route) },
+                navigateToNextScreen = { navController.navigate(AppNavigation.ChooseLanguageFinal.route) },
                 navigateBack = { navController.popBackStack() }
             )
+        }
+        composable(AppNavigation.ChooseLanguageFinal.route) {
+            ChooseLanguageFinalScreen(
+                navigateToNextScreen = { navController.navigate(AppNavigation.Login.route) },
+                navigateBack = { navController.popBackStack() }
+            )
+
         }
         composable(AppNavigation.Main.route) { MainScreen() }
     }
