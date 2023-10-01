@@ -33,7 +33,6 @@ import com.example.awesomelanguagelearning.forgot_password.ui.models.ForgotPassw
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForgotPasswordScreen(
     navigateBack: () -> Unit = {}
@@ -49,65 +48,68 @@ fun ForgotPasswordScreen(
         }
     }
 
+    ForgotPasswordContent(
+        state = emailState,
+        hostState = snackbarHostState,
+        updateEmail = viewModel::updateEmail,
+        onButtonClick = viewModel::doForgotPassword,
+        onBackClick = navigateBack
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ForgotPasswordContent(
+    state: ForgotPasswordState,
+    hostState: SnackbarHostState,
+    updateEmail: (String) -> Unit = {},
+    onButtonClick: () -> Unit = {},
+    onBackClick: () -> Unit = {}
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Toolbar(
                 text = stringResource(R.string.forgot_password),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = navigateBack
+                onIconClick = onBackClick
             )
         },
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
+            SnackbarHost(hostState = hostState)
         },
         content = { innerPadding ->
-            ForgotPasswordContent(
-                state = emailState,
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
-                updateEmail = viewModel::updateEmail,
-                onButtonClick = viewModel::doForgotPassword
-            )
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                HorizontalSpacer(100)
+
+                TextInputWithTitle(
+                    value = state.email,
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    onValueChange = updateEmail,
+                    labelText = stringResource(R.string.forgot_password_title)
+                )
+
+                Spacer(modifier = Modifier.weight(1F))
+
+                TextButton(
+                    text = stringResource(R.string.send_code),
+                    isButtonEnabled = state.isButtonEnabled,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    onClick = onButtonClick
+                )
+
+                HorizontalSpacer(100)
+            }
         }
     )
-}
-
-@Composable
-fun ForgotPasswordContent(
-    state: ForgotPasswordState,
-    modifier: Modifier = Modifier,
-    updateEmail: (String) -> Unit = {},
-    onButtonClick: () -> Unit = {}
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        HorizontalSpacer(100)
-
-        TextInputWithTitle(
-            value = state.email,
-            modifier = Modifier.padding(horizontal = 24.dp),
-            onValueChange = updateEmail,
-            labelText = stringResource(R.string.forgot_password_title)
-        )
-
-        Spacer(modifier = Modifier.weight(1F))
-
-        TextButton(
-            text = stringResource(R.string.send_code),
-            isButtonEnabled = state.isButtonEnabled,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp),
-            onClick = onButtonClick
-        )
-
-        HorizontalSpacer(100)
-    }
 }
 
 @Preview(showBackground = true)
@@ -115,10 +117,11 @@ fun ForgotPasswordContent(
 fun ForgotPasswordContentPreview() {
     AppTheme {
         ForgotPasswordContent(
-            ForgotPasswordState(
+            state = ForgotPasswordState(
                 email = "some@mail.com",
                 isButtonEnabled = true
-            )
+            ),
+            hostState = SnackbarHostState()
         )
     }
 }
