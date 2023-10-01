@@ -48,6 +48,7 @@ fun LoginScreen(
     val viewModel: LoginViewModel = koinViewModel()
     val loginState by viewModel.loginStateFlow.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(lifecycleOwner) {
         viewModel.loginResultFlow.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest {
             navigateToNextScreen()
