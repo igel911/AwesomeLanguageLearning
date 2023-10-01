@@ -11,16 +11,19 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.flowWithLifecycle
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.Controls
@@ -30,9 +33,9 @@ import com.example.awesomelanguagelearning.core.ui.views.TextInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitleClickable
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navigateToNextScreen: () -> Unit = {},
@@ -44,19 +47,46 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = koinViewModel()
     val loginState by viewModel.loginStateFlow.collectAsState()
-    val nextScreenState by viewModel.loginResultFlow.collectAsState(initial = false)
-
-    if (nextScreenState) {
-        navigateToNextScreen()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.loginResultFlow.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest {
+            navigateToNextScreen()
+        }
     }
 
+    LoginContent(
+        loginState = loginState,
+        onToolbarIconClick = navigateBack,
+        updateEmail = viewModel::updateEmail,
+        updatePassword = viewModel::updatePassword,
+        onButtonClick = viewModel::doLogin,
+        onClickableTextClick = goToSignup,
+        onFacebookClick = doLoginByFacebook,
+        onGoogleClick = doLoginByGoogle,
+        onForgotPasswordClick = goToForgotPassword
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LoginContent(
+    loginState: LoginState,
+    onToolbarIconClick: () -> Unit = {},
+    updateEmail: (String) -> Unit = {},
+    updatePassword: (String) -> Unit = {},
+    onButtonClick: () -> Unit = {},
+    onClickableTextClick: () -> Unit = {},
+    onFacebookClick: () -> Unit = {},
+    onGoogleClick: () -> Unit = {},
+    onForgotPasswordClick: () -> Unit = {}
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Toolbar(
                 text = stringResource(R.string.login_title),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = navigateBack
+                onIconClick = onToolbarIconClick
             )
         },
         content = { innerPadding ->
@@ -92,7 +122,7 @@ fun LoginScreen(
                 TextInputWithTitle(
                     value = loginState.email,
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    onValueChange = viewModel::updateEmail,
+                    onValueChange = updateEmail,
                     labelText = stringResource(R.string.email_address_title)
                 )
 
@@ -101,7 +131,7 @@ fun LoginScreen(
                 PasswordInputWithTitle(
                     value = loginState.password,
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    onValueChange = viewModel::updatePassword
+                    onValueChange = updatePassword
                 )
 
                 HorizontalSpacer(12)
@@ -113,7 +143,7 @@ fun LoginScreen(
                         .padding(start = 24.dp),
                     textStyle = AppTheme.typography.bodyM,
                     textColor = AppTheme.colors.red,
-                    onClick = goToForgotPassword
+                    onClick = onForgotPasswordClick
                 )
 
                 HorizontalSpacer(32)
@@ -122,10 +152,11 @@ fun LoginScreen(
                     buttonText = stringResource(R.string.login_title),
                     regularText = stringResource(R.string.not_member),
                     clickableText = stringResource(R.string.signup_title),
-                    onButtonClick = viewModel::doLogin,
-                    onClickableTextClick = goToSignup,
-                    onFacebookClick = doLoginByFacebook,
-                    onGoogleClick = doLoginByGoogle
+                    onButtonClick = onButtonClick,
+                    isButtonEnabled = loginState.isCredentialsCorrect,
+                    onClickableTextClick = onClickableTextClick,
+                    onFacebookClick = onFacebookClick,
+                    onGoogleClick = onGoogleClick
                 )
             }
         }
@@ -136,6 +167,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     AppTheme {
-        LoginScreen()
+        LoginContent(LoginState())
     }
 }
