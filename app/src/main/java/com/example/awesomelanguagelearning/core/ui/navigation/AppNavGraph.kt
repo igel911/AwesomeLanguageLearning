@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageFinalScreen
 import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageScreen
+import com.example.awesomelanguagelearning.forgot_password.ui.ForgotPasswordScreen
 import com.example.awesomelanguagelearning.home.ui.MainScreen
 import com.example.awesomelanguagelearning.login_signup.ui.login.LoginScreen
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.ConfirmPasswordScreen
@@ -38,6 +39,7 @@ fun AppNavGraph(
                 goToSignup = { navController.navigate(AppNavigation.CreateAccount.route) },
                 doLoginByFacebook = { },
                 doLoginByGoogle = { },
+                goToForgotPassword = { navController.navigate(AppNavigation.ForgotPassword.route) },
                 navigateBack = { navController.popBackStack() }
             )
         }
@@ -68,6 +70,12 @@ fun AppNavGraph(
         composable(AppNavigation.ChooseLanguageFinal.route) {
             ChooseLanguageFinalScreen(
                 navigateToNextScreen = { navController.navigate(AppNavigation.Login.route) },
+                navigateBack = { navController.popBackStack() }
+            )
+
+        }
+        composable(AppNavigation.ForgotPassword.route) {
+            ForgotPasswordScreen(
                 navigateBack = { navController.popBackStack() }
             )
 

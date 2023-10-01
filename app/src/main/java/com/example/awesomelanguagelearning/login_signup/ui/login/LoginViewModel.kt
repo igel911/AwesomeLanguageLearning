@@ -37,8 +37,4 @@ class LoginViewModel : ViewModel() {
             _loginResultFlow.emit(true)
         }
     }
-
-    fun goForgotPassword() {
-
-    }
 }

@@ -15,5 +15,7 @@ sealed class AppNavigation(val route: String) {
 
     object ChooseLanguageFinal: AppNavigation(route = "choose_language_final")
 
+    object ForgotPassword: AppNavigation(route = "forgot_password")
+
     object Main: AppNavigation(route = "main")
 }

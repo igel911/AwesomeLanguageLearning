@@ -39,11 +39,13 @@ fun LoginScreen(
     goToSignup: () -> Unit = {},
     doLoginByFacebook: () -> Unit = {},
     doLoginByGoogle: () -> Unit = {},
+    goToForgotPassword: () -> Unit = {},
     navigateBack: () -> Unit = {}
 ) {
     val viewModel: LoginViewModel = koinViewModel()
     val loginState by viewModel.loginStateFlow.collectAsState()
     val nextScreenState by viewModel.loginResultFlow.collectAsState(initial = false)
+
     if (nextScreenState) {
         navigateToNextScreen()
     }
@@ -111,7 +113,7 @@ fun LoginScreen(
                         .padding(start = 24.dp),
                     textStyle = AppTheme.typography.bodyM,
                     textColor = AppTheme.colors.red,
-                    onClick = viewModel::goForgotPassword
+                    onClick = goToForgotPassword
                 )
 
                 HorizontalSpacer(32)
