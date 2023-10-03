@@ -17,26 +17,20 @@ class CreateAccountViewModel : ViewModel() {
     val createAccountResultFlow = _createAccountResultFlow.receiveAsFlow()
 
     fun updateEmail(email: String) {
-        viewModelScope.launch {
-            _createAccountStateFlow.update { signupState ->
-                signupState.copy(email = email)
-            }
+        _createAccountStateFlow.update { signupState ->
+            signupState.copy(email = email)
         }
     }
 
     fun updateFirstName(firstName: String) {
-        viewModelScope.launch {
-            _createAccountStateFlow.update { signupState ->
-                signupState.copy(firstName = firstName)
-            }
+        _createAccountStateFlow.update { signupState ->
+            signupState.copy(firstName = firstName)
         }
     }
 
     fun updateLastName(lastName: String) {
-        viewModelScope.launch {
-            _createAccountStateFlow.update { signupState ->
-                signupState.copy(lastName = lastName)
-            }
+        _createAccountStateFlow.update { signupState ->
+            signupState.copy(lastName = lastName)
         }
     }
 

@@ -17,18 +17,14 @@ class ConfirmPasswordViewModel : ViewModel() {
     val confirmPasswordFlow = _confirmPasswordFlow.receiveAsFlow()
 
     fun updateConfirmPassword(confirmPassword: String) {
-        viewModelScope.launch {
-            _confirmPasswordStateFlow.update { confirmPasswordState ->
-                confirmPasswordState.copy(confirmPassword = confirmPassword)
-            }
+        _confirmPasswordStateFlow.update { confirmPasswordState ->
+            confirmPasswordState.copy(confirmPassword = confirmPassword)
         }
     }
 
     fun updatePassword(password: String) {
-        viewModelScope.launch {
-            _confirmPasswordStateFlow.update { confirmPasswordState ->
-                confirmPasswordState.copy(password = password)
-            }
+        _confirmPasswordStateFlow.update { confirmPasswordState ->
+            confirmPasswordState.copy(password = password)
         }
     }
 

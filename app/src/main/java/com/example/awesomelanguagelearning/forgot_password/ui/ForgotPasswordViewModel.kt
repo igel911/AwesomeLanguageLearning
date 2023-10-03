@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class ForgotPasswordViewModel(
     private val resourceProvider: AppResourceProvider
-): ViewModel() {
+) : ViewModel() {
 
     private val _emailStateFlow = MutableStateFlow(ForgotPasswordState())
     val emailStateFlow = _emailStateFlow.asStateFlow()
@@ -23,13 +23,11 @@ class ForgotPasswordViewModel(
     val effect = _effect.receiveAsFlow()
 
     fun updateEmail(email: String) {
-        viewModelScope.launch {
-            _emailStateFlow.update { state ->
-                state.copy(
-                    email = email,
-                    isButtonEnabled = email.isNotBlank()
-                )
-            }
+        _emailStateFlow.update { state ->
+            state.copy(
+                email = email,
+                isButtonEnabled = email.isNotBlank()
+            )
         }
     }
 

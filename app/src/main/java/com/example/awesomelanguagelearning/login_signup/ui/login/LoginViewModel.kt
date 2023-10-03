@@ -17,18 +17,14 @@ class LoginViewModel : ViewModel() {
     val loginResultFlow = _loginResultFlow.receiveAsFlow()
 
     fun updateEmail(email: String) {
-        viewModelScope.launch {
-            _loginStateFlow.update { loginState ->
-                loginState.copy(email = email)
-            }
+        _loginStateFlow.update { loginState ->
+            loginState.copy(email = email)
         }
     }
 
     fun updatePassword(password: String) {
-        viewModelScope.launch {
-            _loginStateFlow.update { loginState ->
-                loginState.copy(password = password)
-            }
+        _loginStateFlow.update { loginState ->
+            loginState.copy(password = password)
         }
     }
 
