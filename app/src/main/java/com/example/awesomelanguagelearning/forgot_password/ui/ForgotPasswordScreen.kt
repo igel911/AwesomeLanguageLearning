@@ -43,8 +43,8 @@ fun ForgotPasswordScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(lifecycleOwner) {
-        viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest {
-            snackbarHostState.showSnackbar("Забув пароль? От біда:(")
+        viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest { resultText ->
+            snackbarHostState.showSnackbar(resultText)
         }
     }
 

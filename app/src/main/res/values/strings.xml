@@ -44,6 +44,7 @@
     <string name="please_login">Please! Login or Sign up &amp; Get Started</string>
     <string name="forgot_password_title">Enter your email</string>
     <string name="send_code">Send code</string>
+    <string name="forgot_password_error">Забув пароль? От біда:(</string>
 
     <array name="reason_learn_variants">
         <item>Travel</item>
