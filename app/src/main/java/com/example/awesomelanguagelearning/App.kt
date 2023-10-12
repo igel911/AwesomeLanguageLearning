@@ -1,6 +1,8 @@
 package com.example.awesomelanguagelearning
 
 import android.app.Application
+import com.example.awesomelanguagelearning.di.dataBaseModule
+import com.example.awesomelanguagelearning.di.repositoryModule
 import com.example.awesomelanguagelearning.di.useCaseModule
 import com.example.awesomelanguagelearning.di.utilModule
 import com.example.awesomelanguagelearning.di.viewModelModule
@@ -19,7 +21,9 @@ class App: Application() {
             modules(
                 viewModelModule,
                 utilModule,
-                useCaseModule
+                useCaseModule,
+                repositoryModule,
+                dataBaseModule
                 )
         }
     }
