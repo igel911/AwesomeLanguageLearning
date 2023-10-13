@@ -28,38 +28,32 @@ class ChooseLanguageViewModel(
     }
 
     fun onNext() {
-        viewModelScope.launch {
-            _state.update { state ->
-                state.copy(currentPage = state.currentPage + 1)
-            }
+        _state.update { state ->
+            state.copy(currentPage = state.currentPage + 1)
         }
     }
 
     fun onBack() {
-        viewModelScope.launch {
-            _state.update { state ->
-                state.copy(currentPage = state.currentPage - 1)
-            }
+        _state.update { state ->
+            state.copy(currentPage = state.currentPage - 1)
         }
     }
 
     fun onListItemClick(selectedItemId: UUID) {
-        viewModelScope.launch {
-            _state.update { state ->
-                val updatedItems = state.pages[state.currentPage].items.map { item ->
-                    item.copy(isSelected = selectedItemId == item.id)
-                }
-
-                val updatedPages = state.pages.mapIndexed { index, pageState ->
-                    if (index == state.currentPage) {
-                        pageState.copy(items = updatedItems)
-                    } else {
-                        pageState
-                    }
-                }
-
-                state.copy(pages = updatedPages)
+        _state.update { state ->
+            val updatedItems = state.pages[state.currentPage].items.map { item ->
+                item.copy(isSelected = selectedItemId == item.id)
             }
+
+            val updatedPages = state.pages.mapIndexed { index, pageState ->
+                if (index == state.currentPage) {
+                    pageState.copy(items = updatedItems)
+                } else {
+                    pageState
+                }
+            }
+
+            state.copy(pages = updatedPages)
         }
     }
 }

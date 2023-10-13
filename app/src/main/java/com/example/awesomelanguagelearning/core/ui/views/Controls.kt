@@ -19,6 +19,7 @@ fun Controls(
     buttonText: String,
     regularText: String,
     clickableText: String,
+    isButtonEnabled: Boolean = false,
     onButtonClick: () -> Unit = { },
     onFacebookClick: () -> Unit = { },
     onGoogleClick: () -> Unit = { },
@@ -32,7 +33,8 @@ fun Controls(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
-            onClick = onButtonClick
+            onClick = onButtonClick,
+            isButtonEnabled = isButtonEnabled
         )
 
         HorizontalSpacer()

@@ -68,8 +68,9 @@ fun ChooseLanguageScreen(
                     val pageState = state.pages[pageIndex]
                     if (pageState.isLast) {
                         ChooseLanguageLastPage(
-                            state = pageState
-                            )
+                            state = pageState,
+                            onNextClick = navigateToNextScreen
+                        )
                     } else {
                         ChooseLanguagePage(
                             state = pageState,

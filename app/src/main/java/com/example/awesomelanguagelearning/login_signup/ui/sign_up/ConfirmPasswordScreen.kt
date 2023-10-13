@@ -8,14 +8,17 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.flowWithLifecycle
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.Controls
@@ -23,9 +26,9 @@ import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.PasswordInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfirmPasswordScreen(
     navigateToNextScreen: () -> Unit = {},
@@ -36,18 +39,47 @@ fun ConfirmPasswordScreen(
 ) {
     val viewModel: ConfirmPasswordViewModel = koinViewModel()
     val confirmPasswordState by viewModel.confirmPasswordStateFlow.collectAsState()
-    val nextScreenState by viewModel.confirmPasswordFlow.collectAsState(initial = false)
-    if (nextScreenState) {
-        navigateToNextScreen()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.confirmPasswordFlow
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collectLatest {
+                navigateToNextScreen()
+            }
     }
 
+    ConfirmPasswordContent(
+        state = confirmPasswordState,
+        onToolbarIconClick = navigateBack,
+        updatePassword = viewModel::updatePassword,
+        updateConfirmPassword = viewModel::updateConfirmPassword,
+        onButtonClick = viewModel::doSignup,
+        onClickableTextClick = goToLogin,
+        onFacebookClick = doLoginByFacebook,
+        onGoogleClick = doLoginByGoogle
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ConfirmPasswordContent(
+    state: ConfirmPasswordState,
+    onToolbarIconClick: () -> Unit = {},
+    updatePassword: (String) -> Unit = {},
+    updateConfirmPassword: (String) -> Unit = {},
+    onButtonClick: () -> Unit = {},
+    onClickableTextClick: () -> Unit = {},
+    onFacebookClick: () -> Unit = {},
+    onGoogleClick: () -> Unit = {}
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Toolbar(
                 text = stringResource(R.string.signup_title),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = navigateBack
+                onIconClick = onToolbarIconClick
             )
         },
         content = { innerPadding ->
@@ -70,17 +102,17 @@ fun ConfirmPasswordScreen(
                 HorizontalSpacer()
 
                 PasswordInputWithTitle(
-                    value = confirmPasswordState.password,
+                    value = state.password,
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    onValueChange = viewModel::updatePassword
+                    onValueChange = updatePassword
                 )
 
                 HorizontalSpacer()
 
                 PasswordInputWithTitle(
-                    value = confirmPasswordState.confirmPassword,
+                    value = state.confirmPassword,
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    onValueChange = viewModel::updateConfirmPassword,
+                    onValueChange = updateConfirmPassword,
                     titleText = stringResource(R.string.confirm_password)
                 )
 
@@ -90,10 +122,11 @@ fun ConfirmPasswordScreen(
                     buttonText = stringResource(R.string.signup_title),
                     regularText = stringResource(R.string.already_member),
                     clickableText = stringResource(R.string.login_title),
-                    onButtonClick = viewModel::doSignup,
-                    onClickableTextClick = goToLogin,
-                    onFacebookClick = doLoginByFacebook,
-                    onGoogleClick = doLoginByGoogle
+                    onButtonClick = onButtonClick,
+                    isButtonEnabled = state.isCredentialsCorrect,
+                    onClickableTextClick = onClickableTextClick,
+                    onFacebookClick = onFacebookClick,
+                    onGoogleClick = onGoogleClick
                 )
             }
         }
@@ -104,6 +137,6 @@ fun ConfirmPasswordScreen(
 @Composable
 fun ConfirmPasswordPreview() {
     AppTheme {
-        ConfirmPasswordScreen()
+        ConfirmPasswordContent(ConfirmPasswordState())
     }
 }

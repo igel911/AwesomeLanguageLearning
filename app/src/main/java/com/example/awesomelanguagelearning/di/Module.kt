@@ -6,6 +6,7 @@ import com.example.awesomelanguagelearning.core.ui.utils.coroutines.AppDispatche
 import com.example.awesomelanguagelearning.core.ui.utils.coroutines.DispatcherProvider
 import com.example.awesomelanguagelearning.core.ui.utils.resource_provider.AppResourceProvider
 import com.example.awesomelanguagelearning.core.ui.utils.resource_provider.ResourceProvider
+import com.example.awesomelanguagelearning.forgot_password.ui.ForgotPasswordViewModel
 import com.example.awesomelanguagelearning.home.ui.HomeViewModel
 import com.example.awesomelanguagelearning.login_signup.ui.login.LoginViewModel
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.ConfirmPasswordViewModel
@@ -25,6 +26,7 @@ val viewModelModule = module {
     viewModelOf(::CreateAccountViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::ChooseLanguageViewModel)
+    viewModelOf(::ForgotPasswordViewModel)
 }
 
 val utilModule = module {

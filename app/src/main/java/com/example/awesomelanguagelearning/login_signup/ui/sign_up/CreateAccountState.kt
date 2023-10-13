@@ -4,4 +4,8 @@ data class CreateAccountState(
     val email: String = "",
     val firstName: String = "",
     val lastName: String = ""
-)
+) {
+    val isCredentialsCorrect: Boolean = email.isNotBlank()
+            && firstName.isNotBlank()
+            && lastName.isNotBlank()
+}
