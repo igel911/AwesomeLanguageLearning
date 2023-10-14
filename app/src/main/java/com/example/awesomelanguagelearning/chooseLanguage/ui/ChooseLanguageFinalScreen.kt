@@ -47,7 +47,7 @@ fun ChooseLanguageFinalScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(innerPadding)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 24.dp)
             ) {
 
                 Spacer(modifier = Modifier.weight(1F))
@@ -93,7 +93,7 @@ fun ChooseLanguageFinalScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ChooseLanguageFinalScreenPreview() {
+private fun ChooseLanguageFinalScreenPreview() {
     AppTheme {
         ChooseLanguageFinalScreen()
     }

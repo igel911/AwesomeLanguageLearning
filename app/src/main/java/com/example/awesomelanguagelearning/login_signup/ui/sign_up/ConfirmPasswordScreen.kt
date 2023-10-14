@@ -2,7 +2,10 @@ package com.example.awesomelanguagelearning.login_signup.ui.sign_up
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -54,15 +57,14 @@ fun ConfirmPasswordScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .verticalScroll(rememberScrollState())
+                    .padding(innerPadding)
+                    .padding(horizontal = 24.dp, vertical = 40.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                HorizontalSpacer(40)
-
                 TextTitle(
                     text = stringResource(R.string.choose_pass),
-                    modifier = Modifier.padding(horizontal = 56.dp),
                     textStyle = AppTheme.typography.h5,
                     textAlign = TextAlign.Center
                 )
@@ -71,7 +73,6 @@ fun ConfirmPasswordScreen(
 
                 PasswordInputWithTitle(
                     value = signupUser.password,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updatePassword
                 )
 
@@ -79,7 +80,6 @@ fun ConfirmPasswordScreen(
 
                 PasswordInputWithTitle(
                     value = signupUser.confirmPassword,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateConfirmPassword,
                     titleText = stringResource(R.string.confirm_password)
                 )
@@ -90,6 +90,9 @@ fun ConfirmPasswordScreen(
                     buttonText = stringResource(R.string.signup_title),
                     regularText = stringResource(R.string.already_member),
                     clickableText = stringResource(R.string.login_title),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
                     onButtonClick = navigateToNextScreen,
                     isButtonEnabled = signupUser.arePasswordsCorrect,
                     onClickableTextClick = goToLogin,
@@ -104,7 +107,7 @@ fun ConfirmPasswordScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ConfirmPasswordPreview() {
+private fun ConfirmPasswordPreview() {
     AppTheme {
         ConfirmPasswordScreen(
             signupUser = User(),

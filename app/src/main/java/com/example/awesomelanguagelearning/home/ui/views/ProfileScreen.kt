@@ -29,7 +29,7 @@ fun ProfileScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun ProfileScreenPreview() {
+private fun ProfileScreenPreview() {
     AppTheme {
         ProfileScreen()
     }

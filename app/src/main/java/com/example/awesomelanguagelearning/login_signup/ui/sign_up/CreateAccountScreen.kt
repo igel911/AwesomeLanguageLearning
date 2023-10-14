@@ -2,7 +2,10 @@ package com.example.awesomelanguagelearning.login_signup.ui.sign_up
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,15 +53,14 @@ fun CreateAccountScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .verticalScroll(rememberScrollState())
+                    .padding(innerPadding)
+                    .padding(horizontal = 24.dp, vertical = 40.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                HorizontalSpacer(40)
-
                 TextTitle(
                     text = stringResource(R.string.create_acc),
-                    modifier = Modifier.padding(horizontal = 56.dp),
                     textStyle = AppTheme.typography.h5,
                     textAlign = TextAlign.Center
                 )
@@ -67,7 +69,6 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.firstName,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateFirstName,
                     labelText = stringResource(R.string.first_name)
                 )
@@ -76,7 +77,6 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.lastName,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateLastName,
                     labelText = stringResource(R.string.last_name)
                 )
@@ -85,7 +85,6 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.email,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateEmail,
                     labelText = stringResource(R.string.email_address_title)
                 )
@@ -96,6 +95,9 @@ fun CreateAccountScreen(
                     buttonText = stringResource(R.string.continue_title),
                     regularText = stringResource(R.string.already_member),
                     clickableText = stringResource(R.string.login_title),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
                     onButtonClick = navigateToNextScreen,
                     isButtonEnabled = signupUserState.isUserDataCorrect,
                     onClickableTextClick = goToLogin,
@@ -109,7 +111,7 @@ fun CreateAccountScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun CreateAccountPreview() {
+private fun CreateAccountPreview() {
     AppTheme {
         CreateAccountScreen(
             User(

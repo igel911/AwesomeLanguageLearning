@@ -28,7 +28,7 @@ fun TaskScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun TaskScreenPreview() {
+private fun TaskScreenPreview() {
     AppTheme {
         TaskScreen()
     }

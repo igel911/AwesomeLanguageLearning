@@ -11,7 +11,11 @@ class SplashViewModel : ViewModel() {
     private val _goToNextScreenFlow = Channel<Unit>()
     val goToNextScreenFlow = _goToNextScreenFlow.receiveAsFlow()
 
-    fun startTimer() {
+    init {
+        startTimer()
+    }
+
+    private fun startTimer() {
         viewModelScope.launch {
             delay(2000L)
             _goToNextScreenFlow.send(Unit)

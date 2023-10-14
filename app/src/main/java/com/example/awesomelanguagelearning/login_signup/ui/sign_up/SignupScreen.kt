@@ -3,6 +3,7 @@ package com.example.awesomelanguagelearning.login_signup.ui.sign_up
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -52,6 +53,44 @@ fun SignupScreen(
             }
     }
 
+    SignupContent(
+        pagerState = pagerState,
+        screenState = state,
+        snackbarHostState = snackbarHostState,
+        navigateToNextScreen = viewModel::onNext,
+        navigateToNextFlow = viewModel::doSignup,
+        goToLogin = goToLogin,
+        doLoginByFacebook = doLoginByFacebook,
+        doLoginByGoogle = doLoginByGoogle,
+        navigateBack = navigateBack,
+        navigateBackVM = viewModel::onBack,
+        updateEmail = viewModel::updateEmail,
+        updateFirstName = viewModel::updateFirstName,
+        updateLastName = viewModel::updateLastName,
+        updatePassword = viewModel::updatePassword,
+        updateConfirmPassword = viewModel::updateConfirmPassword
+    )
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun SignupContent(
+    pagerState: PagerState,
+    screenState: SignupScreenState,
+    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    navigateToNextScreen: () -> Unit = {},
+    navigateToNextFlow: () -> Unit = {},
+    goToLogin: () -> Unit = {},
+    doLoginByFacebook: () -> Unit = {},
+    doLoginByGoogle: () -> Unit = {},
+    navigateBack: () -> Unit = {},
+    navigateBackVM: () -> Unit = {},
+    updateEmail: (String) -> Unit = {},
+    updateFirstName: (String) -> Unit = {},
+    updateLastName: (String) -> Unit = {},
+    updatePassword: (String) -> Unit = {},
+    updateConfirmPassword: (String) -> Unit = {}
+) {
     HorizontalPager(
         modifier = Modifier.fillMaxSize(),
         state = pagerState,
@@ -59,36 +98,40 @@ fun SignupScreen(
     ) { pageIndex ->
         if (pageIndex == 0) {
             CreateAccountScreen(
-                signupUserState = state.user,
-                navigateToNextScreen = viewModel::onNext,
+                signupUserState = screenState.user,
+                navigateToNextScreen = navigateToNextScreen,
                 goToLogin = goToLogin,
                 doLoginByFacebook = doLoginByFacebook,
                 doLoginByGoogle = doLoginByGoogle,
                 navigateBack = navigateBack,
-                updateEmail = viewModel::updateEmail,
-                updateFirstName = viewModel::updateFirstName,
-                updateLastName = viewModel::updateLastName
+                updateEmail = updateEmail,
+                updateFirstName = updateFirstName,
+                updateLastName = updateLastName
             )
         } else {
             ConfirmPasswordScreen(
-                signupUser = state.user,
+                signupUser = screenState.user,
                 snackbarHostState = snackbarHostState,
-                navigateToNextScreen = viewModel::doSignup,
+                navigateToNextScreen = navigateToNextFlow,
                 goToLogin = goToLogin,
                 doLoginByFacebook = doLoginByFacebook,
                 doLoginByGoogle = doLoginByGoogle,
-                navigateBack = viewModel::onBack,
-                updatePassword = viewModel::updatePassword,
-                updateConfirmPassword = viewModel::updateConfirmPassword
+                navigateBack = navigateBackVM,
+                updatePassword = updatePassword,
+                updateConfirmPassword = updateConfirmPassword
             )
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
-fun SignupScreenPreview() {
+private fun SignupScreenPreview() {
     AppTheme {
-        SignupScreen()
+        SignupContent(
+            pagerState = rememberPagerState { 2 },
+            screenState = SignupScreenState()
+        )
     }
 }
