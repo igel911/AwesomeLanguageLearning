@@ -1,7 +1,6 @@
 package com.example.awesomelanguagelearning.core.data.repository
 
 import com.example.awesomelanguagelearning.core.data.entity.UserEntity
-import com.example.awesomelanguagelearning.core.data.entity.toDomain
 import com.example.awesomelanguagelearning.core.domain.models.User
 import com.example.awesomelanguagelearning.core.domain.repository.UserRepository
 import io.realm.kotlin.Realm
