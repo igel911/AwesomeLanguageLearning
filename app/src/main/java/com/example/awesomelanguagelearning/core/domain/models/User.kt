@@ -8,13 +8,13 @@ data class User(
     val confirmPassword: String = "",
     val isActive: Boolean = false
 ) {
-    val arePasswordsCorrect: Boolean =
+    fun arePasswordsCorrect(): Boolean =
         password.isNotBlank() && confirmPassword.isNotBlank()
 
-    val isUserDataCorrect: Boolean = email.isNotBlank()
+    fun isUserDataCorrect(): Boolean = email.isNotBlank()
             && firstName.isNotBlank()
             && lastName.isNotBlank()
 
-    val arePasswordsNotEqual: Boolean =
+    fun arePasswordsNotEqual(): Boolean =
         password != confirmPassword
 }

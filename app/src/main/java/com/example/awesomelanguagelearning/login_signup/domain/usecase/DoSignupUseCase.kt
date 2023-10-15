@@ -14,7 +14,7 @@ class DoSignupUseCase(
     suspend operator fun invoke(user: User): SignupResult {
         return withContext(dispatcherProvider.io) {
             when {
-                user.arePasswordsNotEqual -> SignupResult(false)
+                user.arePasswordsNotEqual() -> SignupResult(false)
                 else -> {
                     val isSignupSuccessful = userRepository.doSignup(
                         firstName = user.firstName,

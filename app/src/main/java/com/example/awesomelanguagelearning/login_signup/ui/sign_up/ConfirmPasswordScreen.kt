@@ -94,7 +94,7 @@ fun ConfirmPasswordScreen(
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
                     onButtonClick = navigateToNextScreen,
-                    isButtonEnabled = signupUser.arePasswordsCorrect,
+                    isButtonEnabled = signupUser.arePasswordsCorrect(),
                     onClickableTextClick = goToLogin,
                     onFacebookClick = doLoginByFacebook,
                     onGoogleClick = doLoginByGoogle

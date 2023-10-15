@@ -99,7 +99,7 @@ fun CreateAccountScreen(
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
                     onButtonClick = navigateToNextScreen,
-                    isButtonEnabled = signupUserState.isUserDataCorrect,
+                    isButtonEnabled = signupUserState.isUserDataCorrect(),
                     onClickableTextClick = goToLogin,
                     onFacebookClick = doLoginByFacebook,
                     onGoogleClick = doLoginByGoogle
