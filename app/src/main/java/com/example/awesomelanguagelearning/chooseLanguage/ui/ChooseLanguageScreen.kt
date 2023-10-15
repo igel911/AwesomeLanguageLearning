@@ -47,7 +47,6 @@ fun ChooseLanguageScreen(
     ChooseLanguageContent(
         pagerState = pagerState,
         screenState = state,
-        currentPageIndex = currentPageIndex,
         navigateToNextScreen = navigateToNextScreen,
         navigateBackFlow = navigateBack,
         navigateBackScreen = viewModel::onBack,
@@ -62,13 +61,13 @@ fun ChooseLanguageScreen(
 private fun ChooseLanguageContent(
     pagerState: PagerState,
     screenState: ChooseLanguageState,
-    currentPageIndex: Int = 0,
     navigateToNextScreen: () -> Unit = {},
     navigateBackFlow: () -> Unit = {},
     navigateBackScreen: () -> Unit = {},
     onNextClick: () -> Unit = {},
     onItemClick: (UUID) -> Unit = {}
 ) {
+    val currentPageIndex = screenState.currentPage
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
