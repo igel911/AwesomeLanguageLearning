@@ -22,9 +22,7 @@ fun AppNavGraph(
         startDestination = AppNavigation.Splash.route
     ) {
         composable(AppNavigation.Splash.route) {
-            SplashScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.Onboarding.route) }
-            )
+            SplashScreen(navController)
         }
         composable(AppNavigation.Onboarding.route) {
             OnboardingScreen(
