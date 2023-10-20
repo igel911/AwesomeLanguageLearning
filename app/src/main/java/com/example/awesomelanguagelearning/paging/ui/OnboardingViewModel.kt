@@ -14,9 +14,9 @@ class OnboardingViewModel : NavigationViewModel() {
         when (event) {
             is OnboardingEvent.ChangePage -> updateCurrentPage(event.pageIndex)
 
-            is OnboardingEvent.NavigateToLogin -> navigateTo(AppNavigation.Login.route)
+            is OnboardingEvent.NavigateToLogin -> navigateTo(AppNavigation.Login)
 
-            is OnboardingEvent.NavigateToChooseLanguage -> navigateTo(AppNavigation.ChooseLanguage.route)
+            is OnboardingEvent.NavigateToChooseLanguage -> navigateTo(AppNavigation.ChooseLanguage)
         }
     }
 
@@ -24,7 +24,7 @@ class OnboardingViewModel : NavigationViewModel() {
         _currentPageStateFlow.value = currentPageIndex
     }
 
-    private fun navigateTo(route: String) {
-        emitEffect(BaseEffect.NavigateTo(route))
+    private fun navigateTo(destination: AppNavigation) {
+        emitEffect(BaseEffect.NavigateTo(destination.route))
     }
 }

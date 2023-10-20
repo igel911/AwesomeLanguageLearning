@@ -26,19 +26,9 @@ fun AppNavGraph(
         }
         composable(AppNavigation.Onboarding.route) {
             OnboardingScreen(navController)
-                /*onChooseLanguageClick = { navController.navigate(AppNavigation.ChooseLanguage.route) },
-                onLoginClick = { navController.navigate(AppNavigation.Login.route) }
-            )*/
         }
         composable(AppNavigation.Login.route) {
-            LoginScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.Main.route) },
-                goToSignup = { navController.navigate(AppNavigation.Signup.route) },
-                doLoginByFacebook = { },
-                doLoginByGoogle = { },
-                goToForgotPassword = { navController.navigate(AppNavigation.ForgotPassword.route) },
-                navigateBack = { navController.popBackStack() }
-            )
+            LoginScreen(navController)
         }
         composable(AppNavigation.Signup.route) {
             SignupScreen(
