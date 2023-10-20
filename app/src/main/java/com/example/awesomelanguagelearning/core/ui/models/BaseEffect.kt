@@ -1,4 +1,4 @@
-package com.example.awesomelanguagelearning.core.ui.navigation
+package com.example.awesomelanguagelearning.core.ui.models
 
 interface BaseEffect {
     data class NavigateTo(val route: String) : BaseEffect

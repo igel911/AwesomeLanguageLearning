@@ -2,7 +2,7 @@ package com.example.awesomelanguagelearning.core.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.awesomelanguagelearning.core.ui.navigation.BaseEffect
+import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavController
-import com.example.awesomelanguagelearning.core.ui.navigation.BaseEffect
+import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
 import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -2,7 +2,7 @@ package com.example.awesomelanguagelearning.splash.ui
 
 import androidx.lifecycle.viewModelScope
 import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
-import com.example.awesomelanguagelearning.core.ui.navigation.BaseEffect
+import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
 import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

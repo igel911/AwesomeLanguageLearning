@@ -31,14 +31,13 @@ import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextWithClickablePart
+import com.example.awesomelanguagelearning.paging.ui.OnboardingEvent
 
 @Composable
 fun OnboardingPage(
     pageCount: Int,
     currentPage: Int,
-    onPinClick: (Int) -> Unit = { },
-    onChooseLanguageClick: () -> Unit = { },
-    onLoginClick: () -> Unit = { }
+    onEvent: (OnboardingEvent) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -69,7 +68,7 @@ fun OnboardingPage(
                         .clip(CircleShape)
                         .background(getPinColor(currentPage, iteration))
                         .size(12.dp)
-                        .clickable { onPinClick(iteration) }
+                        .clickable { onEvent(OnboardingEvent.ChangePage(iteration)) }
                 )
             }
         }
@@ -99,7 +98,7 @@ fun OnboardingPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
-        ) { onChooseLanguageClick() }
+        ) { onEvent(OnboardingEvent.NavigateToChooseLanguage) }
 
         HorizontalSpacer(32)
 
@@ -107,7 +106,7 @@ fun OnboardingPage(
             regularText = stringResource(R.string.already_user),
             clickableText = stringResource(R.string.login),
             modifier = Modifier.padding(bottom = 48.dp),
-            onClick = onLoginClick
+            onClick = { onEvent(OnboardingEvent.NavigateToLogin) }
         )
     }
 }

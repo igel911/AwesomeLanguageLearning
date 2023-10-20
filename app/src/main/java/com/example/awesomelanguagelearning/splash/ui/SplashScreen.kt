@@ -24,9 +24,7 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SplashScreen(
-    navController: NavController
-) {
+fun SplashScreen(navController: NavController) {
     val viewModel: SplashViewModel = koinViewModel()
 
     BaseComposableScreen(

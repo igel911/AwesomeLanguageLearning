@@ -25,10 +25,10 @@ fun AppNavGraph(
             SplashScreen(navController)
         }
         composable(AppNavigation.Onboarding.route) {
-            OnboardingScreen(
-                onChooseLanguageClick = { navController.navigate(AppNavigation.ChooseLanguage.route) },
+            OnboardingScreen(navController)
+                /*onChooseLanguageClick = { navController.navigate(AppNavigation.ChooseLanguage.route) },
                 onLoginClick = { navController.navigate(AppNavigation.Login.route) }
-            )
+            )*/
         }
         composable(AppNavigation.Login.route) {
             LoginScreen(
