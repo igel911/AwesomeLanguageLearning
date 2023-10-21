@@ -7,9 +7,7 @@ sealed class AppNavigation(val route: String) {
 
     object Login: AppNavigation(route = "login")
 
-    object CreateAccount: AppNavigation(route = "sign_up_create")
-
-    object ConfirmPassword: AppNavigation(route = "sign_up_confirm")
+    object Signup: AppNavigation(route = "sign_up")
 
     object ChooseLanguage: AppNavigation(route = "choose_language")
 

@@ -1,9 +1,0 @@
-package com.example.awesomelanguagelearning.login_signup.ui.sign_up
-
-data class ConfirmPasswordState(
-    val confirmPassword: String = "",
-    val password: String = ""
-) {
-    val isCredentialsCorrect: Boolean =
-        password.isNotBlank() && confirmPassword.isNotBlank()
-}

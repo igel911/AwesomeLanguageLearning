@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
-import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
@@ -42,7 +41,7 @@ fun ForgotPasswordScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(lifecycleOwner) {
+    LaunchedEffect(Unit) {
         viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest { resultText ->
             snackbarHostState.showSnackbar(resultText)
         }
@@ -59,7 +58,7 @@ fun ForgotPasswordScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForgotPasswordContent(
+private fun ForgotPasswordContent(
     state: ForgotPasswordState,
     hostState: SnackbarHostState,
     updateEmail: (String) -> Unit = {},
@@ -82,15 +81,13 @@ fun ForgotPasswordContent(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .padding(innerPadding)
+                    .padding(horizontal = 24.dp, vertical = 100.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                HorizontalSpacer(100)
-
                 TextInputWithTitle(
                     value = state.email,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateEmail,
                     labelText = stringResource(R.string.forgot_password_title)
                 )
@@ -100,13 +97,9 @@ fun ForgotPasswordContent(
                 TextButton(
                     text = stringResource(R.string.send_code),
                     isButtonEnabled = state.isButtonEnabled,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = onButtonClick
                 )
-
-                HorizontalSpacer(100)
             }
         }
     )
@@ -114,7 +107,7 @@ fun ForgotPasswordContent(
 
 @Preview(showBackground = true)
 @Composable
-fun ForgotPasswordContentPreview() {
+private fun ForgotPasswordContentPreview() {
     AppTheme {
         ForgotPasswordContent(
             state = ForgotPasswordState(

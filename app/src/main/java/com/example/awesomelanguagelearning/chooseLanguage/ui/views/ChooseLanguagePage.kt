@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -31,10 +32,12 @@ fun ChooseLanguagePage(
     onItemClick: (UUID) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 24.dp)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HorizontalSpacer()
 
         TextTitle(
             text = state.title,
@@ -62,14 +65,12 @@ fun ChooseLanguagePage(
             modifier = Modifier.fillMaxWidth(),
             onClick = onNextClick
         )
-
-        HorizontalSpacer()
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ChooseLanguagePagePreview(
+private fun ChooseLanguagePagePreview(
     @PreviewParameter(ChooseLanguagePageParameterProvider::class)
     state: ChooseLanguagePageState
 ) {

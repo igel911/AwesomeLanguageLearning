@@ -29,7 +29,7 @@ fun StatsScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun StatsScreenPreview() {
+private fun StatsScreenPreview() {
     AppTheme {
         StatsScreen()
     }

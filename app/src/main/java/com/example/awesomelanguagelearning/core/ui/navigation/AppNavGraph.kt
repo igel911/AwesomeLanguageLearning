@@ -9,8 +9,7 @@ import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageScree
 import com.example.awesomelanguagelearning.forgot_password.ui.ForgotPasswordScreen
 import com.example.awesomelanguagelearning.home.ui.MainScreen
 import com.example.awesomelanguagelearning.login_signup.ui.login.LoginScreen
-import com.example.awesomelanguagelearning.login_signup.ui.sign_up.ConfirmPasswordScreen
-import com.example.awesomelanguagelearning.login_signup.ui.sign_up.CreateAccountScreen
+import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupScreen
 import com.example.awesomelanguagelearning.paging.ui.OnboardingScreen
 import com.example.awesomelanguagelearning.splash.ui.SplashScreen
 
@@ -36,24 +35,15 @@ fun AppNavGraph(
         composable(AppNavigation.Login.route) {
             LoginScreen(
                 navigateToNextScreen = { navController.navigate(AppNavigation.Main.route) },
-                goToSignup = { navController.navigate(AppNavigation.CreateAccount.route) },
+                goToSignup = { navController.navigate(AppNavigation.Signup.route) },
                 doLoginByFacebook = { },
                 doLoginByGoogle = { },
                 goToForgotPassword = { navController.navigate(AppNavigation.ForgotPassword.route) },
                 navigateBack = { navController.popBackStack() }
             )
         }
-        composable(AppNavigation.CreateAccount.route) {
-            CreateAccountScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.ConfirmPassword.route) },
-                goToLogin = { navController.navigate(AppNavigation.Login.route) },
-                doLoginByFacebook = { },
-                doLoginByGoogle = { },
-                navigateBack = { navController.popBackStack() }
-            )
-        }
-        composable(AppNavigation.ConfirmPassword.route) {
-            ConfirmPasswordScreen(
+        composable(AppNavigation.Signup.route) {
+            SignupScreen(
                 navigateToNextScreen = { navController.navigate(AppNavigation.Main.route) },
                 goToLogin = { navController.navigate(AppNavigation.Login.route) },
                 doLoginByFacebook = { },

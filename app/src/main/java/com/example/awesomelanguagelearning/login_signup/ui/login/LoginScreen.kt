@@ -3,9 +3,12 @@ package com.example.awesomelanguagelearning.login_signup.ui.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,7 +52,7 @@ fun LoginScreen(
     val loginState by viewModel.loginStateFlow.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(lifecycleOwner) {
+    LaunchedEffect(Unit) {
         viewModel.loginResultFlow.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest {
             navigateToNextScreen()
         }
@@ -70,7 +73,7 @@ fun LoginScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginContent(
+private fun LoginContent(
     loginState: LoginState,
     onToolbarIconClick: () -> Unit = {},
     updateEmail: (String) -> Unit = {},
@@ -94,11 +97,11 @@ fun LoginContent(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .verticalScroll(rememberScrollState())
+                    .padding(innerPadding)
+                    .padding(horizontal = 24.dp, vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                HorizontalSpacer()
 
                 Image(
                     painterResource(R.drawable.login_logo),
@@ -113,7 +116,6 @@ fun LoginContent(
 
                 TextTitle(
                     text = stringResource(R.string.for_free),
-                    modifier = Modifier.padding(horizontal = 56.dp),
                     textStyle = AppTheme.typography.h5,
                     textAlign = TextAlign.Center
                 )
@@ -122,7 +124,6 @@ fun LoginContent(
 
                 TextInputWithTitle(
                     value = loginState.email,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updateEmail,
                     labelText = stringResource(R.string.email_address_title)
                 )
@@ -131,7 +132,6 @@ fun LoginContent(
 
                 PasswordInputWithTitle(
                     value = loginState.password,
-                    modifier = Modifier.padding(horizontal = 24.dp),
                     onValueChange = updatePassword
                 )
 
@@ -139,9 +139,7 @@ fun LoginContent(
 
                 TextTitleClickable(
                     text = stringResource(R.string.forgot_password),
-                    modifier = Modifier
-                        .align(Alignment.Start)
-                        .padding(start = 24.dp),
+                    modifier = Modifier.align(Alignment.Start),
                     textStyle = AppTheme.typography.bodyM,
                     textColor = AppTheme.colors.red,
                     onClick = onForgotPasswordClick
@@ -153,6 +151,9 @@ fun LoginContent(
                     buttonText = stringResource(R.string.login_title),
                     regularText = stringResource(R.string.not_member),
                     clickableText = stringResource(R.string.signup_title),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
                     onButtonClick = onButtonClick,
                     isButtonEnabled = loginState.isCredentialsCorrect,
                     onClickableTextClick = onClickableTextClick,
@@ -166,7 +167,7 @@ fun LoginContent(
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
+private fun LoginScreenPreview() {
     AppTheme {
         LoginContent(LoginState())
     }

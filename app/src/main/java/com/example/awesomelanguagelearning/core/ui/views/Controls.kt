@@ -2,7 +2,7 @@ package com.example.awesomelanguagelearning.core.ui.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +19,7 @@ fun Controls(
     buttonText: String,
     regularText: String,
     clickableText: String,
+    modifier: Modifier = Modifier,
     isButtonEnabled: Boolean = false,
     onButtonClick: () -> Unit = { },
     onFacebookClick: () -> Unit = { },
@@ -26,27 +27,27 @@ fun Controls(
     onClickableTextClick: () -> Unit = { }
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextButton(
             text = buttonText,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
+                .height(50.dp),
             onClick = onButtonClick,
             isButtonEnabled = isButtonEnabled
         )
 
         HorizontalSpacer()
 
-        SeparatorWithText(modifier = Modifier.padding(horizontal = 24.dp))
+        SeparatorWithText()
 
-        HorizontalSpacer(16)
+        HorizontalSpacer()
 
         LoginVariants(
             onFacebookClick = onFacebookClick,
-            onGoogleClick = onGoogleClick,
-            modifier = Modifier.padding(horizontal = 24.dp)
+            onGoogleClick = onGoogleClick
         )
 
         HorizontalSpacer(16)
@@ -64,14 +65,12 @@ fun Controls(
                 clickable = AppTheme.typography.bodyBoldL
             )
         )
-
-        HorizontalSpacer(16)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ControlsPreview() {
+private fun ControlsPreview() {
     AppTheme {
         Controls(
             buttonText = stringResource(R.string.login_title),

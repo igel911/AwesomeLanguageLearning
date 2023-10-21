@@ -32,7 +32,7 @@ fun SplashScreen(
     val viewModel: SplashViewModel = koinViewModel()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(lifecycleOwner) {
+    LaunchedEffect(Unit) {
         viewModel.goToNextScreenFlow
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collectLatest {
@@ -40,13 +40,11 @@ fun SplashScreen(
             }
     }
 
-    viewModel.startTimer()
-
     SplashContent()
 }
 
 @Composable
-fun SplashContent() {
+private fun SplashContent() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +73,7 @@ fun SplashContent() {
 
 @Preview(showBackground = true)
 @Composable
-fun SplashScreenPreview() {
+private fun SplashScreenPreview() {
     AppTheme {
         SplashContent()
     }
