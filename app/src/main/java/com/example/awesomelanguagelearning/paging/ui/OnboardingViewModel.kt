@@ -3,6 +3,9 @@ package com.example.awesomelanguagelearning.paging.ui
 import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
 import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
 import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
+import com.example.awesomelanguagelearning.paging.ui.OnboardingEvent.ChangePage
+import com.example.awesomelanguagelearning.paging.ui.OnboardingEvent.NavigateToChooseLanguage
+import com.example.awesomelanguagelearning.paging.ui.OnboardingEvent.NavigateToLogin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -12,11 +15,11 @@ class OnboardingViewModel : NavigationViewModel() {
 
     fun onEvent(event: OnboardingEvent) {
         when (event) {
-            is OnboardingEvent.ChangePage -> updateCurrentPage(event.pageIndex)
+            NavigateToLogin -> navigateTo(AppNavigation.Login)
 
-            is OnboardingEvent.NavigateToLogin -> navigateTo(AppNavigation.Login)
+            NavigateToChooseLanguage -> navigateTo(AppNavigation.ChooseLanguage)
 
-            is OnboardingEvent.NavigateToChooseLanguage -> navigateTo(AppNavigation.ChooseLanguage)
+            is ChangePage -> updateCurrentPage(event.pageIndex)
         }
     }
 

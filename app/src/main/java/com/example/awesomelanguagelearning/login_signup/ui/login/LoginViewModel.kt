@@ -3,6 +3,13 @@ package com.example.awesomelanguagelearning.login_signup.ui.login
 import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
 import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
 import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.DoLogin
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.LoginByFacebook
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.LoginByGoogle
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateBack
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateToForgotPassword
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateToSignup
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.UpdateField
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,19 +20,19 @@ class LoginViewModel : NavigationViewModel() {
 
     fun onEvent(event: LoginEvent) {
         when (event) {
-            is LoginEvent.DoLogin -> doLogin()
+            DoLogin -> doLogin()
 
-            is LoginEvent.LoginByFacebook -> {}
+            LoginByFacebook -> {}
 
-            is LoginEvent.LoginByGoogle -> {}
+            LoginByGoogle -> {}
 
-            is LoginEvent.NavigateToSignup -> navigateTo(AppNavigation.Signup)
+            NavigateToSignup -> navigateTo(AppNavigation.Signup)
 
-            is LoginEvent.NavigateToForgotPassword -> navigateTo(AppNavigation.ForgotPassword)
+            NavigateToForgotPassword -> navigateTo(AppNavigation.ForgotPassword)
 
-            is LoginEvent.NavigateBack -> navigateBack()
+            NavigateBack -> navigateBack()
 
-            is LoginEvent.UpdateField -> updateField(event)
+            is UpdateField -> updateField(event)
         }
     }
 
@@ -37,11 +44,11 @@ class LoginViewModel : NavigationViewModel() {
         emitEffect(BaseEffect.NavigateBack)
     }
 
-    private fun updateField(event: LoginEvent.UpdateField) {
+    private fun updateField(event: UpdateField) {
         val value = event.value
         when (event.type) {
-            LoginEvent.UpdateField.FieldType.PASSWORD -> updatePassword(value)
-            LoginEvent.UpdateField.FieldType.EMAIL -> updateEmail(value)
+            UpdateField.FieldType.PASSWORD -> updatePassword(value)
+            UpdateField.FieldType.EMAIL -> updateEmail(value)
         }
     }
 

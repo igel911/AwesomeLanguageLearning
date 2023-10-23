@@ -31,13 +31,7 @@ fun AppNavGraph(
             LoginScreen(navController)
         }
         composable(AppNavigation.Signup.route) {
-            SignupScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.Main.route) },
-                goToLogin = { navController.navigate(AppNavigation.Login.route) },
-                doLoginByFacebook = { },
-                doLoginByGoogle = { },
-                navigateBack = { navController.popBackStack() }
-            )
+            SignupScreen(navController)
         }
         composable(AppNavigation.ChooseLanguage.route) {
             ChooseLanguageScreen(
