@@ -22,7 +22,8 @@ class GetChooseLanguageContentUseCase(
                 getFourthPageState(),
                 getFifthPageState(),
                 getSixthPageState(),
-                getSeventhPageState()
+                getSeventhPageState(),
+                getEightPageState()
             )
         }
     }
@@ -82,6 +83,13 @@ class GetChooseLanguageContentUseCase(
         ChooseLanguagePageState(
             title = resourceProvider.getString(R.string.course_overview),
             subTitle = resourceProvider.getString(R.string.overview_text),
+            isOverview = true
+        )
+
+    private fun getEightPageState(): ChooseLanguagePageState =
+        ChooseLanguagePageState(
+            title = resourceProvider.getString(R.string.congratulations),
+            subTitle = resourceProvider.getString(R.string.please_login),
             isLast = true
         )
 }

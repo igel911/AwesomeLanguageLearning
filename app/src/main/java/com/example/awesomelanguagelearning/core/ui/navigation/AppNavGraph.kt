@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageFinalScreen
 import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageScreen
 import com.example.awesomelanguagelearning.forgot_password.ui.ForgotPasswordScreen
 import com.example.awesomelanguagelearning.home.ui.MainScreen
@@ -35,13 +34,6 @@ fun AppNavGraph(
         }
         composable(AppNavigation.ChooseLanguage.route) {
             ChooseLanguageScreen(navController)
-        }
-        composable(AppNavigation.ChooseLanguageFinal.route) {
-            ChooseLanguageFinalScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.Login.route) },
-                navigateBack = { navController.popBackStack() }
-            )
-
         }
         composable(AppNavigation.ForgotPassword.route) {
             ForgotPasswordScreen(

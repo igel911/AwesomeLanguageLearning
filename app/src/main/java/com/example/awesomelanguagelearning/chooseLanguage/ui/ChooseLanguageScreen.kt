@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.chooseLanguage.domain.entity.ChooseLanguageState
-import com.example.awesomelanguagelearning.chooseLanguage.ui.views.ChooseLanguageLastPage
+import com.example.awesomelanguagelearning.chooseLanguage.ui.views.ChooseLanguageOverviewPage
 import com.example.awesomelanguagelearning.chooseLanguage.ui.views.ChooseLanguagePage
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.BaseComposableScreen
@@ -66,11 +66,7 @@ private fun ChooseLanguageContent(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             Toolbar(
-                text = stringResource(
-                    R.string.complited_title,
-                    screenState.getCurrentPageForTitle(),
-                    screenState.pages.size
-                ),
+                text = getCorrectTitle(screenState),
                 icon = Icons.Filled.KeyboardArrowLeft,
                 onIconClick = { onEvent(ChooseLanguageEvent.NavigateBack) }
             )
@@ -86,22 +82,33 @@ private fun ChooseLanguageContent(
                 userScrollEnabled = false
             ) { pageIndex ->
                 val pageState = screenState.pages[pageIndex]
-                if (pageState.isLast) {
-                    ChooseLanguageLastPage(
-                        state = pageState,
-                        onNextClick = { onEvent(ChooseLanguageEvent.NavigateToFinal) }
-                    )
-                } else {
-                    ChooseLanguagePage(
-                        state = pageState,
-                        onNextClick = { onEvent(ChooseLanguageEvent.NavigateNext) },
-                        onItemClick = { onEvent(ChooseLanguageEvent.ListItemClick(it)) }
-                    )
+                when {
+                    pageState.isLast -> {
+                        ChooseLanguageFinalPage(state = pageState, onEvent = onEvent)
+                    }
+
+                    pageState.isOverview -> {
+                        ChooseLanguageOverviewPage(state = pageState, onEvent = onEvent)
+                    }
+
+                    else -> {
+                        ChooseLanguagePage(state = pageState, onEvent = onEvent)
+                    }
                 }
             }
         }
     )
 }
+
+@Composable
+private fun getCorrectTitle(screenState: ChooseLanguageState): String =
+    if (screenState.isToolbarTitleVisible) {
+        stringResource(
+            R.string.complited_title,
+            screenState.getCurrentPageForTitle(),
+            screenState.getPageQuantityForTitle()
+        )
+    } else ""
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)

@@ -15,21 +15,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.chooseLanguage.domain.entity.ChooseLanguagePageState
+import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageEvent
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 
 @Composable
-fun ChooseLanguageLastPage(
+fun ChooseLanguageOverviewPage(
     state: ChooseLanguagePageState,
-    onNextClick: () -> Unit = {}
+    onEvent: (ChooseLanguageEvent) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 24.dp)
-        ,
+            .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -79,7 +79,7 @@ fun ChooseLanguageLastPage(
         TextButton(
             text = stringResource(R.string.next),
             modifier = Modifier.fillMaxWidth(),
-            onClick = onNextClick
+            onClick = { onEvent(ChooseLanguageEvent.NavigateNext) }
         )
     }
 }
@@ -88,7 +88,7 @@ fun ChooseLanguageLastPage(
 @Composable
 private fun ChooseLanguageLastPagePreview() {
     AppTheme {
-        ChooseLanguageLastPage(
+        ChooseLanguageOverviewPage(
             ChooseLanguagePageState(
                 title = stringResource(R.string.course_overview),
                 subTitle = stringResource(R.string.overview_text)

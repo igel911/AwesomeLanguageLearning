@@ -8,7 +8,7 @@ sealed interface ChooseLanguageEvent {
 
     object NavigateNext : ChooseLanguageEvent
 
-    object NavigateToFinal : ChooseLanguageEvent
+    object FinishFlow : ChooseLanguageEvent
 
     data class ListItemClick(val id: UUID) : ChooseLanguageEvent
 }

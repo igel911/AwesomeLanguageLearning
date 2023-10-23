@@ -35,7 +35,7 @@ class ChooseLanguageViewModel(
 
             ChooseLanguageEvent.NavigateBack -> chooseBackAction()
 
-            ChooseLanguageEvent.NavigateToFinal -> navigateTo(AppNavigation.ChooseLanguageFinal)
+            ChooseLanguageEvent.FinishFlow -> navigateTo(AppNavigation.Login)
 
             is ChooseLanguageEvent.ListItemClick -> onListItemClick(event.id)
         }
@@ -43,13 +43,20 @@ class ChooseLanguageViewModel(
 
     private fun onNext() {
         _state.update { state ->
-            state.copy(currentPage = state.currentPage + 1)
+            val newCurrentPageIndex = state.currentPage + 1
+            state.copy(
+                currentPage = newCurrentPageIndex,
+                isToolbarTitleVisible = newCurrentPageIndex != state.pages.lastIndex
+            )
         }
     }
 
     private fun onBack() {
         _state.update { state ->
-            state.copy(currentPage = state.currentPage - 1)
+            state.copy(
+                currentPage = state.currentPage - 1,
+                isToolbarTitleVisible = true
+            )
         }
     }
 

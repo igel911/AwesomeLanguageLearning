@@ -18,24 +18,22 @@ import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.chooseLanguage.domain.entity.ChooseLanguageListItem
 import com.example.awesomelanguagelearning.chooseLanguage.domain.entity.ChooseLanguagePageState
+import com.example.awesomelanguagelearning.chooseLanguage.ui.ChooseLanguageEvent
 import com.example.awesomelanguagelearning.chooseLanguage.ui.utils.ChooseLanguagePageParameterProvider
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
-import java.util.UUID
 
 @Composable
 fun ChooseLanguagePage(
     state: ChooseLanguagePageState,
-    onNextClick: () -> Unit = {},
-    onItemClick: (UUID) -> Unit = {}
+    onEvent: (ChooseLanguageEvent) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 24.dp)
-        ,
+            .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -53,7 +51,9 @@ fun ChooseLanguagePage(
             items(items = state.items, key = ChooseLanguageListItem::id) { item ->
                 ListItem(
                     itemState = item,
-                    modifier = Modifier.clickable { onItemClick(item.id) }
+                    modifier = Modifier.clickable {
+                        onEvent(ChooseLanguageEvent.ListItemClick(item.id))
+                    }
                 )
             }
         }
@@ -63,7 +63,7 @@ fun ChooseLanguagePage(
         TextButton(
             text = stringResource(R.string.next),
             modifier = Modifier.fillMaxWidth(),
-            onClick = onNextClick
+            onClick = { onEvent(ChooseLanguageEvent.NavigateNext) }
         )
     }
 }
