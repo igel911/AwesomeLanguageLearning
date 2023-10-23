@@ -23,8 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavController
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.views.BaseComposableScreen
 import com.example.awesomelanguagelearning.core.ui.views.TextButton
 import com.example.awesomelanguagelearning.core.ui.views.TextInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
@@ -33,27 +35,30 @@ import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ForgotPasswordScreen(
-    navigateBack: () -> Unit = {}
-) {
+fun ForgotPasswordScreen(navController: NavController) {
+
     val viewModel: ForgotPasswordViewModel = koinViewModel()
     val emailState by viewModel.emailStateFlow.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
-        viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle).collectLatest { resultText ->
-            snackbarHostState.showSnackbar(resultText)
-        }
+        viewModel.forgotPasswordErrorState.flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collectLatest { resultText ->
+                snackbarHostState.showSnackbar(resultText)
+            }
     }
 
-    ForgotPasswordContent(
-        state = emailState,
-        hostState = snackbarHostState,
-        updateEmail = viewModel::updateEmail,
-        onButtonClick = viewModel::doForgotPassword,
-        onBackClick = navigateBack
-    )
+    BaseComposableScreen(
+        navController = navController,
+        viewModel = viewModel,
+    ) {
+        ForgotPasswordContent(
+            state = emailState,
+            hostState = snackbarHostState,
+            onEvent = viewModel::onEvent
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,9 +66,7 @@ fun ForgotPasswordScreen(
 private fun ForgotPasswordContent(
     state: ForgotPasswordState,
     hostState: SnackbarHostState,
-    updateEmail: (String) -> Unit = {},
-    onButtonClick: () -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onEvent: (ForgotPasswordEvent) -> Unit = {}
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -71,7 +74,7 @@ private fun ForgotPasswordContent(
             Toolbar(
                 text = stringResource(R.string.forgot_password),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = onBackClick
+                onIconClick = { onEvent(ForgotPasswordEvent.NavigateBack) }
             )
         },
         snackbarHost = {
@@ -88,7 +91,7 @@ private fun ForgotPasswordContent(
 
                 TextInputWithTitle(
                     value = state.email,
-                    onValueChange = updateEmail,
+                    onValueChange = { onEvent(ForgotPasswordEvent.UpdateEmail(it)) },
                     labelText = stringResource(R.string.forgot_password_title)
                 )
 
@@ -98,7 +101,7 @@ private fun ForgotPasswordContent(
                     text = stringResource(R.string.send_code),
                     isButtonEnabled = state.isButtonEnabled,
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = onButtonClick
+                    onClick = { onEvent(ForgotPasswordEvent.DoPasswordRestore) }
                 )
             }
         }

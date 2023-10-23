@@ -20,27 +20,12 @@ fun AppNavGraph(
         navController = navController,
         startDestination = AppNavigation.Splash.route
     ) {
-        composable(AppNavigation.Splash.route) {
-            SplashScreen(navController)
-        }
-        composable(AppNavigation.Onboarding.route) {
-            OnboardingScreen(navController)
-        }
-        composable(AppNavigation.Login.route) {
-            LoginScreen(navController)
-        }
-        composable(AppNavigation.Signup.route) {
-            SignupScreen(navController)
-        }
-        composable(AppNavigation.ChooseLanguage.route) {
-            ChooseLanguageScreen(navController)
-        }
-        composable(AppNavigation.ForgotPassword.route) {
-            ForgotPasswordScreen(
-                navigateBack = { navController.popBackStack() }
-            )
-
-        }
+        composable(AppNavigation.Splash.route) { SplashScreen(navController) }
+        composable(AppNavigation.Onboarding.route) { OnboardingScreen(navController) }
+        composable(AppNavigation.Login.route) { LoginScreen(navController) }
+        composable(AppNavigation.Signup.route) { SignupScreen(navController) }
+        composable(AppNavigation.ChooseLanguage.route) { ChooseLanguageScreen(navController) }
+        composable(AppNavigation.ForgotPassword.route) { ForgotPasswordScreen(navController) }
         composable(AppNavigation.Main.route) { MainScreen() }
     }
 }
