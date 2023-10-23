@@ -34,10 +34,7 @@ fun AppNavGraph(
             SignupScreen(navController)
         }
         composable(AppNavigation.ChooseLanguage.route) {
-            ChooseLanguageScreen(
-                navigateToNextScreen = { navController.navigate(AppNavigation.ChooseLanguageFinal.route) },
-                navigateBack = { navController.popBackStack() }
-            )
+            ChooseLanguageScreen(navController)
         }
         composable(AppNavigation.ChooseLanguageFinal.route) {
             ChooseLanguageFinalScreen(

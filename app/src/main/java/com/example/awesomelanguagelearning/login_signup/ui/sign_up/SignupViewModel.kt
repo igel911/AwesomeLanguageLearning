@@ -44,7 +44,6 @@ class SignupViewModel(
             SignupEvent.NavigateBack -> chooseBackAction()
 
             is SignupEvent.UpdateField -> updateField(event)
-
         }
     }
 
