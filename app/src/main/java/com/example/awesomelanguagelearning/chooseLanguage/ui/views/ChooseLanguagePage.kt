@@ -3,9 +3,7 @@ package com.example.awesomelanguagelearning.chooseLanguage.ui.views
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -28,12 +26,11 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 @Composable
 fun ChooseLanguagePage(
     state: ChooseLanguagePageState,
+    modifier: Modifier = Modifier,
     onEvent: (ChooseLanguageEvent) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 24.dp),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 

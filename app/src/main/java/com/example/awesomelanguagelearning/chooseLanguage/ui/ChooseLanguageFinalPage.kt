@@ -3,7 +3,6 @@ package com.example.awesomelanguagelearning.chooseLanguage.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -24,13 +23,12 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 @Composable
 fun ChooseLanguageFinalPage(
     state: ChooseLanguagePageState,
+    modifier: Modifier = Modifier,
     onEvent: (ChooseLanguageEvent) -> Unit = {}
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 24.dp)
+        modifier = modifier
     ) {
 
         Spacer(modifier = Modifier.weight(1F))

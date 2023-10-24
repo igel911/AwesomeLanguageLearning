@@ -72,6 +72,9 @@ private fun ChooseLanguageContent(
             )
         },
         content = { innerPadding ->
+            val pageModifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 24.dp)
 
             HorizontalPager(
                 modifier = Modifier
@@ -84,15 +87,27 @@ private fun ChooseLanguageContent(
                 val pageState = screenState.pages[pageIndex]
                 when {
                     pageState.isLast -> {
-                        ChooseLanguageFinalPage(state = pageState, onEvent = onEvent)
+                        ChooseLanguageFinalPage(
+                            state = pageState,
+                            onEvent = onEvent,
+                            modifier = pageModifier
+                        )
                     }
 
                     pageState.isOverview -> {
-                        ChooseLanguageOverviewPage(state = pageState, onEvent = onEvent)
+                        ChooseLanguageOverviewPage(
+                            state = pageState,
+                            onEvent = onEvent,
+                            modifier = pageModifier
+                        )
                     }
 
                     else -> {
-                        ChooseLanguagePage(state = pageState, onEvent = onEvent)
+                        ChooseLanguagePage(
+                            state = pageState,
+                            onEvent = onEvent,
+                            modifier = pageModifier
+                        )
                     }
                 }
             }
