@@ -33,13 +33,7 @@ import com.example.awesomelanguagelearning.core.ui.views.Toolbar
 fun ConfirmPasswordScreen(
     signupUser: User,
     snackbarHostState: SnackbarHostState,
-    navigateToNextScreen: () -> Unit = {},
-    goToLogin: () -> Unit = {},
-    doLoginByFacebook: () -> Unit = {},
-    doLoginByGoogle: () -> Unit = {},
-    navigateBack: () -> Unit = {},
-    updatePassword: (String) -> Unit = {},
-    updateConfirmPassword: (String) -> Unit = {}
+    onEvent: (SignupEvent) -> Unit = {}
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -47,7 +41,7 @@ fun ConfirmPasswordScreen(
             Toolbar(
                 text = stringResource(R.string.signup_title),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = navigateBack
+                onIconClick = { onEvent(SignupEvent.NavigateBack) }
             )
         },
         snackbarHost = {
@@ -73,14 +67,14 @@ fun ConfirmPasswordScreen(
 
                 PasswordInputWithTitle(
                     value = signupUser.password,
-                    onValueChange = updatePassword
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updatePassword(it)) }
                 )
 
                 HorizontalSpacer()
 
                 PasswordInputWithTitle(
                     value = signupUser.confirmPassword,
-                    onValueChange = updateConfirmPassword,
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updateConfirmPassword(it)) },
                     titleText = stringResource(R.string.confirm_password)
                 )
 
@@ -93,11 +87,11 @@ fun ConfirmPasswordScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
-                    onButtonClick = navigateToNextScreen,
+                    onButtonClick = { onEvent(SignupEvent.DoSignup) },
                     isButtonEnabled = signupUser.arePasswordsCorrect(),
-                    onClickableTextClick = goToLogin,
-                    onFacebookClick = doLoginByFacebook,
-                    onGoogleClick = doLoginByGoogle
+                    onClickableTextClick = { onEvent(SignupEvent.NavigateToLogin) },
+                    onFacebookClick = { onEvent(SignupEvent.LoginByFacebook) },
+                    onGoogleClick = { onEvent(SignupEvent.LoginByGoogle) }
                 )
             }
         }

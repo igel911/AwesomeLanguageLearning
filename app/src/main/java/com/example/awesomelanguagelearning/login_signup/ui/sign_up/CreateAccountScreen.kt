@@ -30,14 +30,7 @@ import com.example.awesomelanguagelearning.core.ui.views.Toolbar
 @Composable
 fun CreateAccountScreen(
     signupUserState: User,
-    navigateToNextScreen: () -> Unit = {},
-    goToLogin: () -> Unit = {},
-    doLoginByFacebook: () -> Unit = {},
-    doLoginByGoogle: () -> Unit = {},
-    navigateBack: () -> Unit = {},
-    updateEmail: (String) -> Unit = {},
-    updateFirstName: (String) -> Unit = {},
-    updateLastName: (String) -> Unit = {}
+    onEvent: (SignupEvent) -> Unit = {}
 ) {
 
     Scaffold(
@@ -46,7 +39,7 @@ fun CreateAccountScreen(
             Toolbar(
                 text = stringResource(R.string.signup_title),
                 icon = Icons.Filled.KeyboardArrowLeft,
-                onIconClick = navigateBack
+                onIconClick = { onEvent(SignupEvent.NavigateBack) }
             )
         },
         content = { innerPadding ->
@@ -69,7 +62,7 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.firstName,
-                    onValueChange = updateFirstName,
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updateFirstName(it)) },
                     labelText = stringResource(R.string.first_name)
                 )
 
@@ -77,7 +70,7 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.lastName,
-                    onValueChange = updateLastName,
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updateLastName(it)) },
                     labelText = stringResource(R.string.last_name)
                 )
 
@@ -85,7 +78,7 @@ fun CreateAccountScreen(
 
                 TextInputWithTitle(
                     value = signupUserState.email,
-                    onValueChange = updateEmail,
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updateEmail(it)) },
                     labelText = stringResource(R.string.email_address_title)
                 )
 
@@ -98,11 +91,11 @@ fun CreateAccountScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
-                    onButtonClick = navigateToNextScreen,
+                    onButtonClick = { onEvent(SignupEvent.ContinueSignupDataSetup) },
                     isButtonEnabled = signupUserState.isUserDataCorrect(),
-                    onClickableTextClick = goToLogin,
-                    onFacebookClick = doLoginByFacebook,
-                    onGoogleClick = doLoginByGoogle
+                    onClickableTextClick = { onEvent(SignupEvent.NavigateToLogin) },
+                    onFacebookClick = { onEvent(SignupEvent.LoginByFacebook) },
+                    onGoogleClick = { onEvent(SignupEvent.LoginByGoogle) }
                 )
             }
         }

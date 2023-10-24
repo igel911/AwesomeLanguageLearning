@@ -11,7 +11,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.views.BaseComposableScreen
 import com.example.awesomelanguagelearning.paging.ui.views.OnboardingPage
 import org.koin.androidx.compose.koinViewModel
 
@@ -19,10 +21,8 @@ const val PAGE_COUNT = 3
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen(
-    onChooseLanguageClick: () -> Unit = {},
-    onLoginClick: () -> Unit = {}
-) {
+fun OnboardingScreen(navController: NavController) {
+
     val viewModel: OnboardingViewModel = koinViewModel()
     val pagerState = rememberPagerState { PAGE_COUNT }
     val currentPage by viewModel.currentPageStateFlow.collectAsState()
@@ -31,21 +31,22 @@ fun OnboardingScreen(
         pagerState.animateScrollToPage(currentPage)
     }
 
-    OnboardingContent(
-        pagerState = pagerState,
-        onChooseLanguageClick = onChooseLanguageClick,
-        onLoginClick = onLoginClick,
-        updateCurrentPage = viewModel::updateCurrentPage
-    )
+    BaseComposableScreen(
+        navController = navController,
+        viewModel = viewModel,
+    ) {
+        OnboardingContent(
+            pagerState = pagerState,
+            onEvent = viewModel::onEvent
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun OnboardingContent(
     pagerState: PagerState,
-    onChooseLanguageClick: () -> Unit = {},
-    onLoginClick: () -> Unit = {},
-    updateCurrentPage: (Int) -> Unit = {}
+    onEvent: (OnboardingEvent) -> Unit = {}
 ) {
     HorizontalPager(
         modifier = Modifier.fillMaxSize(),
@@ -54,9 +55,7 @@ private fun OnboardingContent(
         OnboardingPage(
             pageCount = PAGE_COUNT,
             currentPage = page,
-            onPinClick = updateCurrentPage,
-            onChooseLanguageClick = onChooseLanguageClick,
-            onLoginClick = onLoginClick
+            onEvent = onEvent
         )
     }
 }

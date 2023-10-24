@@ -15,19 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavController
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
+import com.example.awesomelanguagelearning.core.ui.views.BaseComposableScreen
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SignupScreen(
-    navigateToNextScreen: () -> Unit = {},
-    goToLogin: () -> Unit = {},
-    doLoginByFacebook: () -> Unit = {},
-    doLoginByGoogle: () -> Unit = {},
-    navigateBack: () -> Unit = {}
-) {
+fun SignupScreen(navController: NavController) {
 
     val viewModel: SignupViewModel = koinViewModel()
 
@@ -45,31 +41,23 @@ fun SignupScreen(
         viewModel.signupResultFlow
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collectLatest { signupResult ->
-                if (signupResult.isSuccessful) {
-                    navigateToNextScreen()
-                } else {
+                if (!signupResult.isSuccessful) {
                     snackbarHostState.showSnackbar("Something went wrong:(")
                 }
             }
     }
 
-    SignupContent(
-        pagerState = pagerState,
-        screenState = state,
-        snackbarHostState = snackbarHostState,
-        navigateToNextScreen = viewModel::onNext,
-        navigateToNextFlow = viewModel::doSignup,
-        goToLogin = goToLogin,
-        doLoginByFacebook = doLoginByFacebook,
-        doLoginByGoogle = doLoginByGoogle,
-        navigateBack = navigateBack,
-        navigateBackVM = viewModel::onBack,
-        updateEmail = viewModel::updateEmail,
-        updateFirstName = viewModel::updateFirstName,
-        updateLastName = viewModel::updateLastName,
-        updatePassword = viewModel::updatePassword,
-        updateConfirmPassword = viewModel::updateConfirmPassword
-    )
+    BaseComposableScreen(
+        navController = navController,
+        viewModel = viewModel,
+    ) {
+        SignupContent(
+            pagerState = pagerState,
+            screenState = state,
+            snackbarHostState = snackbarHostState,
+            onEvent = viewModel::onEvent
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -78,18 +66,7 @@ fun SignupContent(
     pagerState: PagerState,
     screenState: SignupScreenState,
     snackbarHostState: SnackbarHostState = SnackbarHostState(),
-    navigateToNextScreen: () -> Unit = {},
-    navigateToNextFlow: () -> Unit = {},
-    goToLogin: () -> Unit = {},
-    doLoginByFacebook: () -> Unit = {},
-    doLoginByGoogle: () -> Unit = {},
-    navigateBack: () -> Unit = {},
-    navigateBackVM: () -> Unit = {},
-    updateEmail: (String) -> Unit = {},
-    updateFirstName: (String) -> Unit = {},
-    updateLastName: (String) -> Unit = {},
-    updatePassword: (String) -> Unit = {},
-    updateConfirmPassword: (String) -> Unit = {}
+    onEvent: (SignupEvent) -> Unit = {}
 ) {
     HorizontalPager(
         modifier = Modifier.fillMaxSize(),
@@ -99,26 +76,13 @@ fun SignupContent(
         if (pageIndex == 0) {
             CreateAccountScreen(
                 signupUserState = screenState.user,
-                navigateToNextScreen = navigateToNextScreen,
-                goToLogin = goToLogin,
-                doLoginByFacebook = doLoginByFacebook,
-                doLoginByGoogle = doLoginByGoogle,
-                navigateBack = navigateBack,
-                updateEmail = updateEmail,
-                updateFirstName = updateFirstName,
-                updateLastName = updateLastName
+                onEvent = onEvent
             )
         } else {
             ConfirmPasswordScreen(
                 signupUser = screenState.user,
                 snackbarHostState = snackbarHostState,
-                navigateToNextScreen = navigateToNextFlow,
-                goToLogin = goToLogin,
-                doLoginByFacebook = doLoginByFacebook,
-                doLoginByGoogle = doLoginByGoogle,
-                navigateBack = navigateBackVM,
-                updatePassword = updatePassword,
-                updateConfirmPassword = updateConfirmPassword
+                onEvent = onEvent
             )
         }
     }

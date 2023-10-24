@@ -1,15 +1,13 @@
 package com.example.awesomelanguagelearning.splash.ui
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.Channel
+import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
+import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
+import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class SplashViewModel : ViewModel() {
-    private val _goToNextScreenFlow = Channel<Unit>()
-    val goToNextScreenFlow = _goToNextScreenFlow.receiveAsFlow()
+class SplashViewModel : NavigationViewModel() {
 
     init {
         startTimer()
@@ -18,7 +16,7 @@ class SplashViewModel : ViewModel() {
     private fun startTimer() {
         viewModelScope.launch {
             delay(2000L)
-            _goToNextScreenFlow.send(Unit)
+            emitEffect(BaseEffect.NavigateTo(route = AppNavigation.Onboarding.route))
         }
     }
 }

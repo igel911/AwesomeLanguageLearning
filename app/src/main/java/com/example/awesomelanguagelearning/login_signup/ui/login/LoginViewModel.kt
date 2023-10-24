@@ -1,36 +1,70 @@
 package com.example.awesomelanguagelearning.login_signup.ui.login
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.Channel
+import com.example.awesomelanguagelearning.core.ui.models.BaseEffect
+import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
+import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.DoLogin
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.LoginByFacebook
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.LoginByGoogle
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateBack
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateToForgotPassword
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.NavigateToSignup
+import com.example.awesomelanguagelearning.login_signup.ui.login.LoginEvent.UpdateField
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel : NavigationViewModel() {
     private val _loginStateFlow = MutableStateFlow(LoginState())
     val loginStateFlow = _loginStateFlow.asStateFlow()
 
-    private val _loginResultFlow = Channel<Unit>()
-    val loginResultFlow = _loginResultFlow.receiveAsFlow()
+    fun onEvent(event: LoginEvent) {
+        when (event) {
+            DoLogin -> doLogin()
 
-    fun updateEmail(email: String) {
+            LoginByFacebook -> {}
+
+            LoginByGoogle -> {}
+
+            NavigateToSignup -> navigateTo(AppNavigation.Signup)
+
+            NavigateToForgotPassword -> navigateTo(AppNavigation.ForgotPassword)
+
+            NavigateBack -> navigateBack()
+
+            is UpdateField -> updateField(event)
+        }
+    }
+
+    private fun navigateTo(destination: AppNavigation) {
+        emitEffect(BaseEffect.NavigateTo(destination.route))
+    }
+
+    private fun navigateBack() {
+        emitEffect(BaseEffect.NavigateBack)
+    }
+
+    private fun updateField(event: UpdateField) {
+        val value = event.value
+        when (event.type) {
+            UpdateField.FieldType.PASSWORD -> updatePassword(value)
+            UpdateField.FieldType.EMAIL -> updateEmail(value)
+        }
+    }
+
+    private fun updateEmail(email: String) {
         _loginStateFlow.update { loginState ->
             loginState.copy(email = email)
         }
     }
 
-    fun updatePassword(password: String) {
+    private fun updatePassword(password: String) {
         _loginStateFlow.update { loginState ->
             loginState.copy(password = password)
         }
     }
 
-    fun doLogin() {
-        viewModelScope.launch {
-            _loginResultFlow.send(Unit)
-        }
+    private fun doLogin() {
+        navigateTo(AppNavigation.Main)
     }
 }
