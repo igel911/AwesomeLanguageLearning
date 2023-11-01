@@ -14,6 +14,7 @@ import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.U
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.LAST_NAME
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.PASSWORD
 import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidationResult
+import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidationResult
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -122,7 +123,7 @@ class SignupViewModel(
             if (validationResult.isValid()) {
                 state.copy(
                     currentPage = state.currentPage + 1,
-                    confirmPasswordValidationResult = ConfirmPasswordValidationResult.valid()
+                    createAccountValidationResult = CreateAccountValidationResult.valid()
                 )
             } else {
                 state.copy(createAccountValidationResult = validationResult)
