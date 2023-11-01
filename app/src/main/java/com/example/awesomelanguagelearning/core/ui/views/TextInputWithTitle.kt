@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.awesomelanguagelearning.core.ui.models.ValidationResult
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 
 @Composable
@@ -16,6 +17,7 @@ fun TextInputWithTitle(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     labelText: String = "",
+    validationResult: ValidationResult = ValidationResult.valid(),
     labelTextStyle: TextStyle = AppTheme.typography.bodyM,
     placeholderText: String = "",
     placeholderTextStyle: TextStyle = AppTheme.typography.bodyM,
@@ -37,7 +39,9 @@ fun TextInputWithTitle(
             placeholderText = placeholderText,
             placeholderTextStyle = placeholderTextStyle,
             shape = shape,
-            textColor = textColor
+            textColor = textColor,
+            validationResult = validationResult
+
         )
     }
 }

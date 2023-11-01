@@ -27,12 +27,14 @@ import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.PasswordInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
+import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidationResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfirmPasswordScreen(
     signupUser: User,
     snackbarHostState: SnackbarHostState,
+    validationResult: ConfirmPasswordValidationResult,
     onEvent: (SignupEvent) -> Unit = {}
 ) {
     Scaffold(
@@ -67,7 +69,8 @@ fun ConfirmPasswordScreen(
 
                 PasswordInputWithTitle(
                     value = signupUser.password,
-                    onValueChange = { onEvent(SignupEvent.UpdateField.updatePassword(it)) }
+                    onValueChange = { onEvent(SignupEvent.UpdateField.updatePassword(it)) },
+                    validationResult = validationResult.passwordValidationResult
                 )
 
                 HorizontalSpacer()
@@ -75,7 +78,8 @@ fun ConfirmPasswordScreen(
                 PasswordInputWithTitle(
                     value = signupUser.confirmPassword,
                     onValueChange = { onEvent(SignupEvent.UpdateField.updateConfirmPassword(it)) },
-                    titleText = stringResource(R.string.confirm_password)
+                    titleText = stringResource(R.string.confirm_password),
+                    validationResult = validationResult.repeatedPasswordValidationResult
                 )
 
                 HorizontalSpacer(140)
@@ -88,7 +92,6 @@ fun ConfirmPasswordScreen(
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
                     onButtonClick = { onEvent(SignupEvent.DoSignup) },
-                    isButtonEnabled = signupUser.arePasswordsCorrect(),
                     onClickableTextClick = { onEvent(SignupEvent.NavigateToLogin) },
                     onFacebookClick = { onEvent(SignupEvent.LoginByFacebook) },
                     onGoogleClick = { onEvent(SignupEvent.LoginByGoogle) }
@@ -105,7 +108,8 @@ private fun ConfirmPasswordPreview() {
     AppTheme {
         ConfirmPasswordScreen(
             signupUser = User(),
-            snackbarHostState = SnackbarHostState()
+            snackbarHostState = SnackbarHostState(),
+            validationResult = ConfirmPasswordValidationResult.valid()
         )
     }
 }

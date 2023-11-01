@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.awesomelanguagelearning.R
+import com.example.awesomelanguagelearning.core.ui.models.ValidationResult
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 
 @Composable
@@ -15,7 +16,8 @@ fun PasswordInputWithTitle(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     titleText: String = stringResource(R.string.password),
-    placeholderText: String = ""
+    placeholderText: String = "",
+    validationResult: ValidationResult = ValidationResult.valid()
 ) {
     Column(modifier = modifier) {
         TextTitle(
@@ -29,7 +31,8 @@ fun PasswordInputWithTitle(
             modifier = Modifier.fillMaxWidth(),
             value = value,
             onValueChange = onValueChange,
-            placeholderText = placeholderText
+            placeholderText = placeholderText,
+            validationResult = validationResult
         )
     }
 }

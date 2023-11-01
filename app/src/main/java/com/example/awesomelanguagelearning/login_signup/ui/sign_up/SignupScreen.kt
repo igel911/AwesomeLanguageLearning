@@ -42,7 +42,7 @@ fun SignupScreen(navController: NavController) {
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collectLatest { signupResult ->
                 if (!signupResult.isSuccessful) {
-                    snackbarHostState.showSnackbar("Something went wrong:(")
+                    snackbarHostState.showSnackbar(signupResult.errorMessage.orEmpty())
                 }
             }
     }
@@ -76,13 +76,15 @@ fun SignupContent(
         if (pageIndex == 0) {
             CreateAccountScreen(
                 signupUserState = screenState.user,
-                onEvent = onEvent
+                onEvent = onEvent,
+                validationResult = screenState.createAccountValidationResult
             )
         } else {
             ConfirmPasswordScreen(
                 signupUser = screenState.user,
                 snackbarHostState = snackbarHostState,
-                onEvent = onEvent
+                onEvent = onEvent,
+                validationResult = screenState.confirmPasswordValidationResult
             )
         }
     }

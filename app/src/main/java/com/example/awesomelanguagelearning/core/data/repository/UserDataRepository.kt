@@ -12,7 +12,7 @@ class UserDataRepository(
 
     override suspend fun getUserByMail(email: String): User? {
         return realm
-            .query<UserEntity>("favoriteSnacks.name == $0", email)
+            .query<UserEntity>("email == $0", email)
             .first()
             .find()
             ?.toDomain()

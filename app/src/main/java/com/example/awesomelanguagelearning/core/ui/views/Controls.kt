@@ -20,7 +20,7 @@ fun Controls(
     regularText: String,
     clickableText: String,
     modifier: Modifier = Modifier,
-    isButtonEnabled: Boolean = false,
+    isButtonEnabled: Boolean = true,
     onButtonClick: () -> Unit = { },
     onFacebookClick: () -> Unit = { },
     onGoogleClick: () -> Unit = { },
