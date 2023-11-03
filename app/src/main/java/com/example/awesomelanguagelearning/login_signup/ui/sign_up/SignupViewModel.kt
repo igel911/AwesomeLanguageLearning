@@ -6,15 +6,13 @@ import com.example.awesomelanguagelearning.core.ui.navigation.AppNavigation
 import com.example.awesomelanguagelearning.core.ui.viewmodels.NavigationViewModel
 import com.example.awesomelanguagelearning.login_signup.domain.entity.SignupResult
 import com.example.awesomelanguagelearning.login_signup.domain.usecase.DoSignupUseCase
-import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidator
-import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidator
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.CONFIRM_PASSWORD
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.EMAIL
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.FIRST_NAME
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.LAST_NAME
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.PASSWORD
-import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidationResult
-import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidationResult
+import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -95,14 +93,12 @@ class SignupViewModel(
     }
 
     private fun validateConfirmPasswordData() {
+        val validationResult = confirmPasswordValidator.validate(_state.value.user)
         _state.update { state ->
-            val validationResult = confirmPasswordValidator.validate(state.user)
-            if (validationResult.isValid()) {
-                state.copy(confirmPasswordValidationResult = ConfirmPasswordValidationResult.valid()).also {
-                    doSignup()
-                }
-            }
             state.copy(confirmPasswordValidationResult = validationResult)
+        }
+        if (validationResult.isValid()) {
+            doSignup()
         }
     }
 
@@ -120,14 +116,15 @@ class SignupViewModel(
     private fun validateCreateAccountData() {
         _state.update { state ->
             val validationResult = createAccountValidator.validate(state.user)
-            if (validationResult.isValid()) {
-                state.copy(
-                    currentPage = state.currentPage + 1,
-                    createAccountValidationResult = CreateAccountValidationResult.valid()
-                )
+            val newCurrentPage = if (validationResult.isValid()) {
+                state.currentPage + 1
             } else {
-                state.copy(createAccountValidationResult = validationResult)
+                state.currentPage
             }
+            state.copy(
+                currentPage = newCurrentPage,
+                createAccountValidationResult = validationResult
+            )
         }
     }
 

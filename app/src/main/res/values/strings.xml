@@ -50,9 +50,9 @@
     <string name="field_cant_be_blank">This field can\'t be blank</string>
     <string name="password_too_short">The password needs to consist of at least 8 characters</string>
     <string name="password_without_symbols">The password needs to contain at least one letter and digit</string>
-    <string name="passwords_dont_match">The passwords don\'t match</string>
+    <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="field_can_contain_only_letters">This field can contains only letters</string>
-    <string name="user_already_exist">This field can contains only letters</string>
+    <string name="user_already_exist">A user with such an email already exist</string>
     <string name="unexpected_error">Something went wrong:(</string>
 
     <array name="reason_learn_variants">

@@ -91,7 +91,7 @@ private fun getCorrectPasswordImage(showPassword: Boolean) = if (showPassword) {
 
 @Preview(showBackground = true)
 @Composable
-fun PasswordInputPreview() {
+private fun PasswordInputPreview() {
     AppTheme {
         PasswordInput(
             value = "abc",

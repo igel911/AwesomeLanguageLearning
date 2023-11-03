@@ -67,8 +67,8 @@ fun TextInput(
         },
         shape = shape,
         visualTransformation = visualTransformation,
-        trailingIcon = {
-            if (icon != null) {
+        trailingIcon = if (icon != null) {
+            @Composable {
                 IconButton(onClick = onIconClick) {
                     Icon(
                         imageVector = icon,
@@ -76,27 +76,27 @@ fun TextInput(
                     )
                 }
             }
-        },
+        } else null,
         singleLine = singleLine,
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         textStyle = textStyle,
         colors = textFieldColors,
         isError = !validationResult.isValid,
-        supportingText = {
-            if (!validationResult.isValid) {
+        supportingText = if (!validationResult.isValid) {
+            @Composable {
                 Text(
                     text = validationResult.errorMessage.orEmpty(),
                     color = AppTheme.colors.red
                 )
             }
-        }
+        } else null
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun OutlinedTextInputPreview() {
+private fun OutlinedTextInputPreview() {
     AppTheme {
         TextInput(
             value = "abc",
@@ -107,7 +107,7 @@ fun OutlinedTextInputPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun OutlinedTextInputErrorPreview() {
+private fun OutlinedTextInputErrorPreview() {
     AppTheme {
         TextInput(
             value = "abc",

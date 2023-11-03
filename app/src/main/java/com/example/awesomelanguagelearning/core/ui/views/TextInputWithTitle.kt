@@ -48,7 +48,7 @@ fun TextInputWithTitle(
 
 @Preview(showBackground = true)
 @Composable
-fun OutlinedTextInputWithTitlePreview() {
+private fun OutlinedTextInputWithTitlePreview() {
     AppTheme {
         TextInputWithTitle(
             value = "abc",

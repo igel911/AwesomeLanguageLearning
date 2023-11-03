@@ -39,7 +39,7 @@ fun PasswordInputWithTitle(
 
 @Preview(showBackground = true)
 @Composable
-fun PasswordInputWithTitlePreview() {
+private fun PasswordInputWithTitlePreview() {
     AppTheme {
         PasswordInputWithTitle(
             value = "abc",
