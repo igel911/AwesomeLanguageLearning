@@ -54,6 +54,8 @@
     <string name="field_can_contain_only_letters">This field can contains only letters</string>
     <string name="user_already_exist">A user with such an email already exist</string>
     <string name="unexpected_error">Something went wrong:(</string>
+    <string name="hello_username">Hello, %1$s</string>
+    <string name="what_would_you_like">What would you like to learn today?</string>
 
     <array name="reason_learn_variants">
         <item>Travel</item>

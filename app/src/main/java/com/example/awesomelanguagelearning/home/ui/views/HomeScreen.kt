@@ -1,30 +1,44 @@
 package com.example.awesomelanguagelearning.home.ui.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
-import com.example.awesomelanguagelearning.core.ui.views.TextTitle
-import com.example.awesomelanguagelearning.home.ui.MainNavigation
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-    Box(
+
+    Scaffold(
         modifier = Modifier
             .background(AppTheme.colors.grayLight)
             .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        TextTitle(
-            text = MainNavigation.Home.route,
-            textStyle = AppTheme.typography.h4,
+        topBar = {
+            HomeToolbar(
+                username = "Filllo",
+                onUserIconClick = { },
+                onActionIconClick = { }
+            )
+        },
+        content = { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
 
-        )
-    }
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true)
