@@ -119,7 +119,7 @@ private fun ChooseLanguageContent(
 private fun getCorrectTitle(screenState: ChooseLanguageState): String =
     if (screenState.isToolbarTitleVisible) {
         stringResource(
-            R.string.complited_title,
+            R.string.completed_title,
             screenState.getCurrentPageForTitle(),
             screenState.getPageQuantityForTitle()
         )

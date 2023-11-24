@@ -25,7 +25,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create_acc">Create an Account</string>
     <string name="choose_pass">Choose a Password</string>
-    <string name="complited_title">Completed %1$d\/%2$d</string>
+    <string name="completed_title">Completed %1$d\/%2$d</string>
     <string name="what_your_language">What Is Your Mother Language?</string>
     <string name="next">Next</string>
     <string name="what_main_reason_learn">What Is The Main Reason to Learn english?</string>
@@ -56,6 +56,11 @@
     <string name="unexpected_error">Something went wrong:(</string>
     <string name="hello_username">Hello, %1$s</string>
     <string name="what_would_you_like">What would you like to learn today?</string>
+    <string name="continue_course">Continue Course</string>
+    <string name="featured_courses">Featured Courses</string>
+    <string name="see_all">See All</string>
+    <string name="completed_course">%1$d\/%2$d</string>
+    <string name="course_description">%1$d classes - %2$s</string>
 
     <array name="reason_learn_variants">
         <item>Travel</item>

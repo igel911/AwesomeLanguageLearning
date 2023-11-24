@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.awesomelanguagelearning.home.ui.views.HomeScreen
+import com.example.awesomelanguagelearning.home.ui.views.home.HomeScreen
 import com.example.awesomelanguagelearning.home.ui.views.ProfileScreen
 import com.example.awesomelanguagelearning.home.ui.views.StatsScreen
 import com.example.awesomelanguagelearning.home.ui.views.TaskScreen

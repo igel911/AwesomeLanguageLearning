@@ -1,4 +1,4 @@
-package com.example.awesomelanguagelearning.home.ui.views
+package com.example.awesomelanguagelearning.home.ui.views.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -34,6 +34,7 @@ fun HomeToolbar(
     onActionIconClick: () -> Unit = { }
 ) {
     val colors = AppTheme.colors
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,7 +73,7 @@ fun HomeToolbar(
 
         TextTitle(
             text = stringResource(id = R.string.hello_username, username),
-            textStyle = AppTheme.typography.h6,
+            textStyle = AppTheme.typography.h4,
             textColor = colors.white
         )
 
