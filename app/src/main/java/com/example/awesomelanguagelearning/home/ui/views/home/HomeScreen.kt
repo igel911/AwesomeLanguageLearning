@@ -1,12 +1,14 @@
 package com.example.awesomelanguagelearning.home.ui.views.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.home.ui.models.CourseData
+import com.example.awesomelanguagelearning.home.ui.models.FeaturedCourseData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,13 +51,11 @@ fun HomeScreen() {
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
+                Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                     CourseCard(
                         CourseData(
-                            name = "German\nLanguage",
-                            difficulty = "Easy",
+                            name = stringResource(id = R.string.german_language),
+                            difficulty = stringResource(R.string.easy),
                             classesQuantity = 20,
                             completedClasses = 15,
                             isSelected = true
@@ -64,8 +65,8 @@ fun HomeScreen() {
 
                     CourseCard(
                         CourseData(
-                            name = "Spanish\nLanguage",
-                            difficulty = "Easy",
+                            name = stringResource(id = R.string.spanish_language),
+                            difficulty = stringResource(R.string.easy),
                             classesQuantity = 30,
                             completedClasses = 10
                         ),
@@ -78,6 +79,29 @@ fun HomeScreen() {
                     secondText = stringResource(id = R.string.see_all),
                     modifier = Modifier.fillMaxWidth()
                 )
+
+                Row(
+                    modifier = Modifier.horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    FeaturedCourseCard(
+                        FeaturedCourseData(
+                            name = stringResource(R.string.german_language),
+                            type = stringResource(R.string.grammar_quiz),
+                            duration = 2,
+                            backgroundColor = colors.blueLight
+                        )
+                    )
+
+                    FeaturedCourseCard(
+                        FeaturedCourseData(
+                            name = stringResource(R.string.german_language),
+                            type = stringResource(R.string.grammar_quiz),
+                            duration = 2,
+                            backgroundColor = colors.orange.copy(alpha = 0.2f)
+                        )
+                    )
+                }
             }
         }
     )

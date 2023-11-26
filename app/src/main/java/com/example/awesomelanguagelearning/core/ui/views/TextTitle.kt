@@ -28,7 +28,7 @@ fun TextTitle(
 
 @Preview(showBackground = true)
 @Composable
-fun TextTitlePreview() {
+private fun TextTitlePreview() {
     AppTheme {
         TextTitle(
             text = "some title"

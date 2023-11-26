@@ -76,8 +76,8 @@ private fun SelectedCourseCardPreview() {
     AppTheme {
         CourseCard(
             CourseData(
-                name = "German\nLanguage",
-                difficulty = "Easy",
+                name = stringResource(id = R.string.german_language),
+                difficulty = stringResource(R.string.easy),
                 classesQuantity = 20,
                 completedClasses = 15,
                 isSelected = true
