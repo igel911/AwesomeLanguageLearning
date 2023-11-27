@@ -67,6 +67,8 @@
     <string name="Online_phrases">Online\nPhrases</string>
     <string name="easy">Easy</string>
     <string name="hours">%1$d hours</string>
+    <string name="set_goal">Set Weekly Goal</string>
+    <string name="who_set_goal">Who set a weekly goal are more likely to stay motivated</string>
 
     <array name="reason_learn_variants">
         <item>Travel</item>

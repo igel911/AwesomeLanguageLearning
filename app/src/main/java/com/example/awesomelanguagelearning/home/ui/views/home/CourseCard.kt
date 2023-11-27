@@ -92,4 +92,4 @@ private fun getTextColor(isSelected: Boolean): Color =
 
 @Composable
 private fun getBackgroundColor(isSelected: Boolean): Color =
-    if (isSelected) AppTheme.colors.blueDark else AppTheme.colors.orange.copy(alpha = 0.2f)
+    if (isSelected) AppTheme.colors.blueDark else AppTheme.colors.orangeLight

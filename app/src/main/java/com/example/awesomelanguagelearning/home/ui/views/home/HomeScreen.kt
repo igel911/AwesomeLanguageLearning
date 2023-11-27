@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -42,7 +43,8 @@ fun HomeScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .padding(20.dp),
+                    .padding(20.dp)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 HomeListTitle(
@@ -98,10 +100,12 @@ fun HomeScreen() {
                             name = stringResource(R.string.german_language),
                             type = stringResource(R.string.grammar_quiz),
                             duration = 2,
-                            backgroundColor = colors.orange.copy(alpha = 0.2f)
+                            backgroundColor = colors.orangeLight
                         )
                     )
                 }
+
+                SetGoalItem(modifier = Modifier.fillMaxWidth())
             }
         }
     )

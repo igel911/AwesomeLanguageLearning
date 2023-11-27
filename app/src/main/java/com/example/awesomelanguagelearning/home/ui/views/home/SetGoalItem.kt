@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,61 +16,45 @@ import androidx.compose.ui.unit.dp
 import com.example.awesomelanguagelearning.R
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
-import com.example.awesomelanguagelearning.core.ui.views.TextTitleLeadingIcon
-import com.example.awesomelanguagelearning.home.ui.models.FeaturedCourseData
 
 @Composable
-fun FeaturedCourseCard(
-    featuredCourseData: FeaturedCourseData,
+fun SetGoalItem(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier
         .background(
-            color = featuredCourseData.backgroundColor,
+            color = AppTheme.colors.orangeLight,
             shape = AppTheme.shapes.medium
         )
         .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(40.dp)
-        ) {
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_pfp),
+            contentDescription = ""
+        )
+
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.Start
         ) {
             TextTitle(
-                text = featuredCourseData.name,
+                text = stringResource(R.string.set_goal),
                 textStyle = AppTheme.typography.bodyBoldL
             )
 
             TextTitle(
-                text = featuredCourseData.type
-            )
-
-            TextTitleLeadingIcon(
-                text = stringResource(R.string.hours, featuredCourseData.duration),
-                imageVector = Icons.Filled.Timer,
-                imageColor = AppTheme.colors.greenDark
+                text = stringResource(R.string.who_set_goal)
             )
         }
-
-        Image(
-            painter = painterResource(R.drawable.paging_1),
-            contentDescription = ""
-        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeListTitlePreview() {
+private fun SetGoalItemPreview() {
     AppTheme {
-        FeaturedCourseCard(
-            FeaturedCourseData(
-                name = stringResource(R.string.german_language),
-                type = stringResource(R.string.grammar_quiz),
-                duration = 2,
-                backgroundColor = AppTheme.colors.blueLight
-            )
-        )
+        SetGoalItem()
     }
 }
