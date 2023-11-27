@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.awesomelanguagelearning.R
+import com.example.awesomelanguagelearning.core.ui.models.ValidationResult
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +35,7 @@ fun PasswordInput(
     modifier: Modifier = Modifier,
     placeholderText: String = "",
     contentDescription: String = stringResource(R.string.password),
+    validationResult: ValidationResult = ValidationResult.valid(),
     placeholderTextStyle: TextStyle = AppTheme.typography.bodyS,
     shape: Shape = AppTheme.shapes.medium,
     singleLine: Boolean = true,
@@ -72,6 +74,7 @@ fun PasswordInput(
         keyboardOptions = keyboardOptions,
         textFieldColors = textFieldColors,
         shape = shape,
+        validationResult = validationResult
     )
 }
 
@@ -88,7 +91,7 @@ private fun getCorrectPasswordImage(showPassword: Boolean) = if (showPassword) {
 
 @Preview(showBackground = true)
 @Composable
-fun PasswordInputPreview() {
+private fun PasswordInputPreview() {
     AppTheme {
         PasswordInput(
             value = "abc",

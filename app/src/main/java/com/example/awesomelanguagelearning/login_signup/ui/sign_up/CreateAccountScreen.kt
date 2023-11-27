@@ -25,11 +25,13 @@ import com.example.awesomelanguagelearning.core.ui.views.HorizontalSpacer
 import com.example.awesomelanguagelearning.core.ui.views.TextInputWithTitle
 import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 import com.example.awesomelanguagelearning.core.ui.views.Toolbar
+import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidationResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateAccountScreen(
     signupUserState: User,
+    validationResult: CreateAccountValidationResult,
     onEvent: (SignupEvent) -> Unit = {}
 ) {
 
@@ -63,7 +65,8 @@ fun CreateAccountScreen(
                 TextInputWithTitle(
                     value = signupUserState.firstName,
                     onValueChange = { onEvent(SignupEvent.UpdateField.updateFirstName(it)) },
-                    labelText = stringResource(R.string.first_name)
+                    labelText = stringResource(R.string.first_name),
+                    validationResult = validationResult.firstNameValidationResult
                 )
 
                 HorizontalSpacer()
@@ -71,7 +74,8 @@ fun CreateAccountScreen(
                 TextInputWithTitle(
                     value = signupUserState.lastName,
                     onValueChange = { onEvent(SignupEvent.UpdateField.updateLastName(it)) },
-                    labelText = stringResource(R.string.last_name)
+                    labelText = stringResource(R.string.last_name),
+                    validationResult = validationResult.lastNameValidationResult
                 )
 
                 HorizontalSpacer()
@@ -79,7 +83,8 @@ fun CreateAccountScreen(
                 TextInputWithTitle(
                     value = signupUserState.email,
                     onValueChange = { onEvent(SignupEvent.UpdateField.updateEmail(it)) },
-                    labelText = stringResource(R.string.email_address_title)
+                    labelText = stringResource(R.string.email_address_title),
+                    validationResult = validationResult.emailValidationResult
                 )
 
                 HorizontalSpacer(32)
@@ -92,7 +97,6 @@ fun CreateAccountScreen(
                         .fillMaxWidth()
                         .padding(vertical = 24.dp),
                     onButtonClick = { onEvent(SignupEvent.ContinueSignupDataSetup) },
-                    isButtonEnabled = signupUserState.isUserDataCorrect(),
                     onClickableTextClick = { onEvent(SignupEvent.NavigateToLogin) },
                     onFacebookClick = { onEvent(SignupEvent.LoginByFacebook) },
                     onGoogleClick = { onEvent(SignupEvent.LoginByGoogle) }
@@ -111,7 +115,8 @@ private fun CreateAccountPreview() {
                 firstName = "James",
                 lastName = "Hunt",
                 email = "my@mail.com"
-            )
+            ),
+            CreateAccountValidationResult.valid()
         )
     }
 }

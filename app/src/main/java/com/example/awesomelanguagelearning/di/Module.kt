@@ -11,6 +11,12 @@ import com.example.awesomelanguagelearning.core.ui.utils.resource_provider.Resou
 import com.example.awesomelanguagelearning.forgot_password.ui.ForgotPasswordViewModel
 import com.example.awesomelanguagelearning.home.ui.HomeViewModel
 import com.example.awesomelanguagelearning.login_signup.domain.usecase.DoSignupUseCase
+import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.EmailValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.NameValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.PasswordValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.RepeatedPasswordValidator
 import com.example.awesomelanguagelearning.login_signup.ui.login.LoginViewModel
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupViewModel
 import com.example.awesomelanguagelearning.paging.ui.OnboardingViewModel
@@ -46,4 +52,13 @@ val repositoryModule = module {
 
 val dataBaseModule = module {
     single { getRealm() }
+}
+
+val validatorModule = module {
+    singleOf(::NameValidator)
+    singleOf(::EmailValidator)
+    singleOf(::PasswordValidator)
+    singleOf(::RepeatedPasswordValidator)
+    singleOf(::CreateAccountValidator)
+    singleOf(::ConfirmPasswordValidator)
 }

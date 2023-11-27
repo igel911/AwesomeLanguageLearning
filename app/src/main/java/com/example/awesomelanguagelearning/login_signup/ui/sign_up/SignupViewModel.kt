@@ -11,6 +11,8 @@ import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.U
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.FIRST_NAME
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.LAST_NAME
 import com.example.awesomelanguagelearning.login_signup.ui.sign_up.SignupEvent.UpdateField.FieldType.PASSWORD
+import com.example.awesomelanguagelearning.login_signup.ui.validator.ConfirmPasswordValidator
+import com.example.awesomelanguagelearning.login_signup.ui.validator.CreateAccountValidator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +21,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignupViewModel(
-    private val doSignupUseCase: DoSignupUseCase
+    private val doSignupUseCase: DoSignupUseCase,
+    private val createAccountValidator: CreateAccountValidator,
+    private val confirmPasswordValidator: ConfirmPasswordValidator
 ) : NavigationViewModel() {
 
     private val _state = MutableStateFlow(SignupScreenState())
@@ -31,9 +35,9 @@ class SignupViewModel(
 
     fun onEvent(event: SignupEvent) {
         when (event) {
-            SignupEvent.DoSignup -> doSignup()
+            SignupEvent.DoSignup -> validateConfirmPasswordData()
 
-            SignupEvent.ContinueSignupDataSetup -> onNext()
+            SignupEvent.ContinueSignupDataSetup -> validateCreateAccountData()
 
             SignupEvent.LoginByFacebook -> {}
 
@@ -88,6 +92,16 @@ class SignupViewModel(
         }
     }
 
+    private fun validateConfirmPasswordData() {
+        val validationResult = confirmPasswordValidator.validate(_state.value.user)
+        _state.update { state ->
+            state.copy(confirmPasswordValidationResult = validationResult)
+        }
+        if (validationResult.isValid()) {
+            doSignup()
+        }
+    }
+
     private fun doSignup() {
         viewModelScope.launch {
             val signupResult = doSignupUseCase(_state.value.user)
@@ -99,9 +113,18 @@ class SignupViewModel(
         }
     }
 
-    private fun onNext() {
+    private fun validateCreateAccountData() {
         _state.update { state ->
-            state.copy(currentPage = state.currentPage + 1)
+            val validationResult = createAccountValidator.validate(state.user)
+            val newCurrentPage = if (validationResult.isValid()) {
+                state.currentPage + 1
+            } else {
+                state.currentPage
+            }
+            state.copy(
+                currentPage = newCurrentPage,
+                createAccountValidationResult = validationResult
+            )
         }
     }
 

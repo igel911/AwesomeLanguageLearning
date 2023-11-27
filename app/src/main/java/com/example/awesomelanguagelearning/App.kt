@@ -5,6 +5,7 @@ import com.example.awesomelanguagelearning.di.dataBaseModule
 import com.example.awesomelanguagelearning.di.repositoryModule
 import com.example.awesomelanguagelearning.di.useCaseModule
 import com.example.awesomelanguagelearning.di.utilModule
+import com.example.awesomelanguagelearning.di.validatorModule
 import com.example.awesomelanguagelearning.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,8 @@ class App: Application() {
                 utilModule,
                 useCaseModule,
                 repositoryModule,
-                dataBaseModule
+                dataBaseModule,
+                validatorModule
                 )
         }
     }

@@ -7,14 +7,4 @@ data class User(
     val password: String = "",
     val confirmPassword: String = "",
     val isActive: Boolean = false
-) {
-    fun arePasswordsCorrect(): Boolean =
-        password.isNotBlank() && confirmPassword.isNotBlank()
-
-    fun isUserDataCorrect(): Boolean = email.isNotBlank()
-            && firstName.isNotBlank()
-            && lastName.isNotBlank()
-
-    fun arePasswordsNotEqual(): Boolean =
-        password != confirmPassword
-}
+)

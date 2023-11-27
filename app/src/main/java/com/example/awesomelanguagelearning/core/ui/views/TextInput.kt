@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.awesomelanguagelearning.core.ui.models.ValidationResult
 import com.example.awesomelanguagelearning.core.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,6 +30,7 @@ fun TextInput(
     modifier: Modifier = Modifier,
     placeholderText: String = "",
     contentDescription: String = "",
+    validationResult: ValidationResult = ValidationResult.valid(),
     placeholderTextStyle: TextStyle = AppTheme.typography.bodyS,
     shape: Shape = AppTheme.shapes.medium,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -65,8 +67,8 @@ fun TextInput(
         },
         shape = shape,
         visualTransformation = visualTransformation,
-        trailingIcon = {
-            if (icon != null) {
+        trailingIcon = if (icon != null) {
+            @Composable {
                 IconButton(onClick = onIconClick) {
                     Icon(
                         imageVector = icon,
@@ -74,22 +76,46 @@ fun TextInput(
                     )
                 }
             }
-        },
+        } else null,
         singleLine = singleLine,
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         textStyle = textStyle,
-        colors = textFieldColors
+        colors = textFieldColors,
+        isError = !validationResult.isValid,
+        supportingText = if (!validationResult.isValid) {
+            @Composable {
+                Text(
+                    text = validationResult.errorMessage.orEmpty(),
+                    color = AppTheme.colors.red
+                )
+            }
+        } else null
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun OutlinedTextInputPreview() {
+private fun OutlinedTextInputPreview() {
     AppTheme {
         TextInput(
             value = "abc",
             onValueChange = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun OutlinedTextInputErrorPreview() {
+    AppTheme {
+        TextInput(
+            value = "abc",
+            onValueChange = { },
+            validationResult = ValidationResult(
+                isValid = false,
+                errorMessage = "Houston, we have a problem"
+            )
         )
     }
 }
