@@ -19,8 +19,8 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 
 @Composable
 fun CircularProgressbarWithTitle(
-    number: Int = 15,
-    maxNumber: Int = 30,
+    number: Int,
+    maxNumber: Int,
     isSelected: Boolean = false,
     size: Dp = 120.dp,
     indicatorThickness: Dp = 12.dp
@@ -66,15 +66,22 @@ fun CircularProgressbarWithTitle(
 @Composable
 private fun CircularProgressbarWithTitlePreview() {
     AppTheme {
-        CircularProgressbarWithTitle()
+        CircularProgressbarWithTitle(
+            number = 15,
+            maxNumber = 30
+        )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 private fun SelectedCircularProgressbarWithTitlePreview() {
     AppTheme {
-        CircularProgressbarWithTitle(isSelected = true)
+        CircularProgressbarWithTitle(
+            number = 15,
+            maxNumber = 30,
+            isSelected = true
+        )
     }
 }
 
