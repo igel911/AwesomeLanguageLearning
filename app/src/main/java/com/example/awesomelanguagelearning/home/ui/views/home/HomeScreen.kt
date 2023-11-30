@@ -48,8 +48,8 @@ fun HomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 HomeListTitle(
-                    firstText = stringResource(id = R.string.continue_course),
-                    secondText = stringResource(id = R.string.see_all),
+                    topText = stringResource(id = R.string.continue_course),
+                    bottomText = stringResource(id = R.string.see_all),
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -77,8 +77,8 @@ fun HomeScreen() {
                 }
 
                 HomeListTitle(
-                    firstText = stringResource(id = R.string.featured_courses),
-                    secondText = stringResource(id = R.string.see_all),
+                    topText = stringResource(id = R.string.featured_courses),
+                    bottomText = stringResource(id = R.string.see_all),
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -91,16 +91,15 @@ fun HomeScreen() {
                             name = stringResource(R.string.german_language),
                             type = stringResource(R.string.grammar_quiz),
                             duration = 2,
-                            backgroundColor = colors.blueLight
+                            isSelected = true
                         )
                     )
 
                     FeaturedCourseCard(
                         FeaturedCourseData(
-                            name = stringResource(R.string.german_language),
-                            type = stringResource(R.string.grammar_quiz),
-                            duration = 2,
-                            backgroundColor = colors.orangeLight
+                            name = stringResource(R.string.spanish_language),
+                            type = stringResource(R.string.online_phrases),
+                            duration = 2
                         )
                     )
                 }

@@ -64,7 +64,7 @@
     <string name="german_language">German\nLanguage</string>
     <string name="spanish_language">"Spanish\nLanguage"</string>
     <string name="grammar_quiz">Grammar\nQuiz</string>
-    <string name="Online_phrases">Online\nPhrases</string>
+    <string name="online_phrases">Online\nPhrases</string>
     <string name="easy">Easy</string>
     <string name="hours">%1$d hours</string>
     <string name="set_goal">Set Weekly Goal</string>

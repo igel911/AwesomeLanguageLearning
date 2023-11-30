@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +29,7 @@ fun FeaturedCourseCard(
 ) {
     Row(modifier = modifier
         .background(
-            color = featuredCourseData.backgroundColor,
+            color = getBackgroundColor(featuredCourseData.isSelected),
             shape = AppTheme.shapes.medium
         )
         .padding(16.dp),
@@ -70,9 +71,27 @@ private fun HomeListTitlePreview() {
             FeaturedCourseData(
                 name = stringResource(R.string.german_language),
                 type = stringResource(R.string.grammar_quiz),
-                duration = 2,
-                backgroundColor = AppTheme.colors.blueLight
+                duration = 2
             )
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeListTitleSelectedPreview() {
+    AppTheme {
+        FeaturedCourseCard(
+            FeaturedCourseData(
+                name = stringResource(R.string.german_language),
+                type = stringResource(R.string.grammar_quiz),
+                duration = 2,
+                isSelected = true
+            )
+        )
+    }
+}
+
+@Composable
+private fun getBackgroundColor(isSelected: Boolean): Color =
+    if (isSelected) AppTheme.colors.blueLight else AppTheme.colors.orangeLight

@@ -11,8 +11,8 @@ import com.example.awesomelanguagelearning.core.ui.views.TextTitle
 
 @Composable
 fun HomeListTitle(
-    firstText: String,
-    secondText: String,
+    topText: String,
+    bottomText: String,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -21,12 +21,12 @@ fun HomeListTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextTitle(
-            text = firstText,
+            text = topText,
             textStyle = AppTheme.typography.h6
         )
 
         TextTitle(
-            text = secondText,
+            text = bottomText,
             textColor = AppTheme.colors.grayMedium
         )
     }
@@ -37,8 +37,8 @@ fun HomeListTitle(
 private fun HomeListTitlePreview() {
     AppTheme {
         HomeListTitle(
-            firstText = "First text",
-            secondText = "Second text"
+            topText = "First text",
+            bottomText = "Second text"
         )
     }
 }
