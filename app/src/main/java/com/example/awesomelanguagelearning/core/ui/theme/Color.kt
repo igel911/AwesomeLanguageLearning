@@ -38,6 +38,7 @@ data class ComposeColors(
     val purple: Color = Color.Transparent,
     val blueDark: Color = Color.Transparent,
     val orange: Color = Color.Transparent,
+    val orangeLight: Color = orange.copy(alpha = 0.2f),
     val greenDark: Color = Color.Transparent,
     val red: Color = Color.Transparent,
     val greenLight: Color = Color.Transparent,
