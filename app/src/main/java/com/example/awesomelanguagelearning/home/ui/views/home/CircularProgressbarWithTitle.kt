@@ -4,6 +4,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +29,9 @@ fun CircularProgressbarWithTitle(
     size: Dp = 120.dp,
     indicatorThickness: Dp = 12.dp
 ) {
-    val circleRadius = size - indicatorThickness
+    val circleRadius by remember { mutableStateOf(size - indicatorThickness) }
+    val radius by remember { mutableStateOf(circleRadius / 2) }
+    val sweepAngle by remember { mutableFloatStateOf((number.toFloat() / maxNumber) * 360 * -1) }
     val backgroundIndicatorColor = getBackgroundIndicatorColor(isSelected)
     val foregroundIndicatorColor = getForegroundIndicatorColor(isSelected)
 
@@ -39,11 +45,9 @@ fun CircularProgressbarWithTitle(
 
             drawCircle(
                 color = backgroundIndicatorColor,
-                radius = circleRadius.toPx() / 2,
+                radius = radius.toPx(),
                 style = Stroke(width = indicatorThickness.toPx(), cap = StrokeCap.Round)
             )
-
-            val sweepAngle = (number.toFloat() / maxNumber) * 360 * -1
 
             drawArc(
                 color = foregroundIndicatorColor,
